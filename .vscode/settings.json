@@ -1,0 +1,6 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.gradle.wrapper.enabled": true,
+    "java.import.gradle.user.home": "~/.gradle",
+    "java.import.gradle.home": "/путь/к/gradle", // опционально, если Gradle установлен вручную
+}

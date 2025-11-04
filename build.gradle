@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.Room222'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.sparkjava:spark-core:2.9.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+application {
+    mainClass = 'com.openBilim.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.openBilim.Main'
+    }
+}
