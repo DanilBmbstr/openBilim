@@ -27,19 +27,56 @@ public class MultipleChoiceTask extends Task {
 
     @Override
     public boolean validate() {
-        /*  Требуется немного переработки под String вместо List<string>
-        if (selectedOptions == null || selectedOptions.isEmpty())
+        if (selectedOptions == null || selectedOptions.isBlank()) {
             return false;
+        }
 
-        Set<Integer> selectedIndices = selectedOptions.stream()
-                .map(options::indexOf)
-                .collect(Collectors.toSet());
+        // Разбиваем строку по запятой (и убираем пробелы)
+        Set<Integer> selectedIndices = parseSelectedOptions(selectedOptions);
 
         return selectedIndices.equals(correctIndices);
-         */
-        return false;
     }
+/**
+     * Умный парсер: поддерживает и индексы, и сами варианты ответа
+     * Примеры входящих строк:
+     *   "0, 2, 3"
+     *   "Меркурий, Венера, Земля"
+     *   "  Париж ,  Лондон  "
+     */
+/**
+     * Универсальный парсер: принимает как индексы ("0, 2, 3"), так и текст вариантов.
+     * Работает с лишними пробелами, разным регистром — всё как надо.
+     */
+    private Set<Integer> parseSelectedOptions(String input) {
+        return Arrays.stream(input.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(this::resolveToIndex)
+                .filter(idx -> idx >= 0)
+                .collect(Collectors.toSet());
+    }
+    /**
+     * Пытается превратить строку в индекс:
+     * - сначала как число
+     * - потом как точное совпадение текста
+     * - (по желанию можно добавить .equalsIgnoreCase() если нужен игнор регистра)
+     */
+    private int resolveToIndex(String option) {
+        try {
+            int idx = Integer.parseInt(option);
+            if (idx >= 0 && idx < options.size()) {
+                return idx;
+            }
+        } catch (NumberFormatException ignored) {
+            // не число — ищем по тексту
+        }
 
+        int idx = options.indexOf(option);
+        if (idx != -1) {
+            return idx;
+        }
+        return -1; // не нашли
+    }
     public void handleAnswer(String session_id,Consumer<AnswerData> resultCallback){
                     Router.handleMultipleChoiseAnswer(session_id, this, result -> {
                 resultCallback.accept(new AnswerData(result.userToken, result.answer, result.validation));;
