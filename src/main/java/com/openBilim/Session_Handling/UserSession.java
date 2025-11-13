@@ -3,7 +3,7 @@ package com.openBilim.Session_Handling;
 import com.openBilim.HTTP_Handling.*;
 import com.openBilim.Tasks.*;
 
-public class UserSession extends Thread {
+public class UserSession{
     private String session_id;
     private Test test;
     private String user_token;
