@@ -7,7 +7,7 @@ import spark.Spark;
 
 import com.openBilim.HTTP_Handling.*;
 import com.openBilim.Tasks.TextTask;
-
+import com.openBilim.Session_Handling.*;
 
 
 class Main{
@@ -21,12 +21,18 @@ public static void main(String[] args)
     Spark.init();
 //___________________________________________________________________________________
 
+//
 
-//Вопросы и ответы тут. Пример:
-    TextTask sampleTask = new TextTask("Введите число 1", "1");
-    Router.sendNewTask(sampleTask);
-    Router.handleTextAnswer(sampleTask, result -> 
-    {System.out.println("Пользователь " + result.userToken + " ответил на вопрос \n правильность: " + result.validation);});
+
+
+//Создание теста + сессии, запуск сессии с айди 1234. Пример:
+//Проверка пользователя пока ещё не добавлена
+Test sampleTest = new Test("Subj", "Name");
+UserSession sampleSession = new UserSession("1234", sampleTest, "Vasya_Pupkin");
+
+TextTask sampleTask = new TextTask("Введите число 1", "1");
+sampleTest.pushTask(sampleTask);
+sampleSession.run();
 //__________________________________________________________--
 
 

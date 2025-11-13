@@ -1,5 +1,9 @@
 package com.openBilim.Tasks;
 
+import java.util.function.Consumer;
+
+import com.openBilim.HTTP_Handling.AnswerData;
+
 public abstract class Task {
 
     //Само задание
@@ -8,6 +12,7 @@ public abstract class Task {
     //Функция для проверки правильности ответа
     public abstract boolean validate();
 
+    public abstract void handleAnswer(String session_id, Consumer<AnswerData> resultCallback);
 
     
     public Task(String taskText){
