@@ -24,9 +24,9 @@ public class TextTask extends Task {
     };
 
     @Override
-    public void handleAnswer(String session_id,Consumer<AnswerData> resultCallback) {
-        router.handleTextAnswer(session_id, this, result -> {
-            answerData.init(result.userToken, result.answer, result.validation);
+    public void handleAnswer(String session_id, String userToken, Consumer<AnswerData> resultCallback) {
+        router.handleTextAnswer(session_id, userToken, this, result -> {
+            answerData.init(result.getUser(), result.answer, result.validation);
             resultCallback.accept(answerData);
             ;
 

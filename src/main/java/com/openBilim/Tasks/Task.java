@@ -16,7 +16,7 @@ public abstract class Task {
     //Функция для проверки правильности ответа
     public abstract boolean validate();
 
-    public abstract void handleAnswer(String session_id, Consumer<AnswerData> resultCallback);
+    public abstract void handleAnswer(String session_id, String userToken, Consumer<AnswerData> resultCallback);
 
     
     public Task(String taskText){

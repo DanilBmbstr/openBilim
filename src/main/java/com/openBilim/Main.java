@@ -28,7 +28,7 @@ public static void main(String[] args)
 //Создание теста + сессии, запуск сессии с айди 1234. Пример:
 //Проверка пользователя пока ещё не добавлена
 Test sampleTest = new Test("Subj", "Name");
-UserSession sampleSession = new UserSession("1234", sampleTest, "Vasya_Pupkin");
+UserSession sampleSession = new UserSession("1234", sampleTest, "Serega");
 
 TextTask sampleTask = new TextTask("Введите число 1", "1");
 sampleTest.pushTask(sampleTask);

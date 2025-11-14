@@ -20,43 +20,70 @@ public class Router {
 
     // Для разных типов ответа используем разные эндпоинты
     // Колбэк используется для обработки результата
-    public void handleTextAnswer(String session_id, TextTask task, Consumer<AnswerData> resultCallback) {
-        post("/"+ session_id + "/textAns/ans", (spark.Request req, spark.Response res) -> {
+    public void handleTextAnswer(String session_id, String userToken, TextTask task,
+            Consumer<AnswerData> resultCallback) {
+        post("/" + session_id + "/textAns/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
+
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
+
             boolean eval;
+
             task.answer = answer.getAnswer();
-            eval = task.validate();
-            resultCallback.accept(new AnswerData(answer.userToken, answer.answer, eval));
-            return (String.valueOf(eval));
+
+            if (answer.getUser().equals(userToken)) {
+                eval = task.validate();
+                resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
+                return (String.valueOf(eval));
+            } else {
+                resultCallback.accept(new AnswerData(null, "Wrong user", false));
+                return "Error: Wrong session";
+            }
 
         });
     }
 
-    public void handleSingleChoiseAnswer(String session_id, SingleChoiceTask task, Consumer<AnswerData> resultCallback) {
-        post("/"+ session_id + "/singleChoise/ans", (spark.Request req, spark.Response res) -> {
+    public void handleSingleChoiseAnswer(String session_id, String userToken, SingleChoiceTask task,
+            Consumer<AnswerData> resultCallback) {
+        post("/" + session_id + "/singleChoise/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
             boolean eval;
             task.selectedOption = answer.getAnswer();
-            eval = task.validate();
-            resultCallback.accept(new AnswerData(answer.userToken, answer.answer, eval));
-            return (String.valueOf(eval));
+            if (answer.getUser().equals(userToken)) {
+                eval = task.validate();
+                resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
+                return (String.valueOf(eval));
+            } else {
+                resultCallback.accept(null);
+                return "Error: Wrong session";
+            }
 
         });
-        
+
     }
-    public void handleMultipleChoiseAnswer(String session_id, MultipleChoiceTask task, Consumer<AnswerData> resultCallback) {
-        post("/"+ session_id + "/multiChoise/ans", (spark.Request req, spark.Response res) -> {
+
+    public void handleMultipleChoiseAnswer(String session_id, String userToken, MultipleChoiceTask task,
+            Consumer<AnswerData> resultCallback) {
+        post("/" + session_id + "/multiChoise/ans", (spark.Request req, spark.Response res) -> {
+
             ObjectMapper objectMapper = new ObjectMapper();
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
             boolean eval;
+
             task.selectedOptions = answer.getAnswer();
-            eval = task.validate();
-            resultCallback.accept(new AnswerData(answer.userToken, answer.answer, eval));
-            return (String.valueOf(eval));
+
+            if (answer.getUser().equals(userToken)) {
+
+                eval = task.validate();
+                resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
+                return (String.valueOf(eval));
+            } else {
+                resultCallback.accept(null);
+                return "Error: Wrong session";
+            }
 
         });
-        
+
     }
 }
