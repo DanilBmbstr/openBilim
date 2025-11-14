@@ -19,7 +19,6 @@ public class Router {
     
     public void sendNewTask(Task task, String session_id) {
         Spark.unmap("/" + session_id + "/getTask");
-
         if(task != null) {
         get("/" + session_id + "/getTask", (req, res) -> {
                System.out.println(task.getTaskText());
@@ -38,7 +37,9 @@ public class Router {
     // Колбэк используется для обработки результата
     public void handleTextAnswer(String session_id, String userToken, TextTask task,
             Consumer<AnswerData> resultCallback) {
-                Spark.unmap("/" + session_id + "/textAns/ans");
+        Spark.unmap("/" + session_id + "/textAns/ans");
+        Spark.unmap("/" + session_id + "/singleChoise/ans");
+        Spark.unmap("/" + session_id + "/multiChoise/ans");
         post("/" + session_id + "/textAns/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
 
@@ -62,7 +63,9 @@ public class Router {
 
     public void handleSingleChoiseAnswer(String session_id, String userToken, SingleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
-                Spark.unmap("/" + session_id + "/singleChoise/ans");
+        Spark.unmap("/" + session_id + "/textAns/ans");
+        Spark.unmap("/" + session_id + "/singleChoise/ans");
+        Spark.unmap("/" + session_id + "/multiChoise/ans");
         post("/" + session_id + "/singleChoise/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
@@ -83,7 +86,9 @@ public class Router {
 
     public void handleMultipleChoiseAnswer(String session_id, String userToken, MultipleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
-                Spark.unmap("/" + session_id + "/multiChoise/ans");
+                        Spark.unmap("/" + session_id + "/textAns/ans");
+        Spark.unmap("/" + session_id + "/singleChoise/ans");
+        Spark.unmap("/" + session_id + "/multiChoise/ans");
         post("/" + session_id + "/multiChoise/ans", (spark.Request req, spark.Response res) -> {
 
             ObjectMapper objectMapper = new ObjectMapper();

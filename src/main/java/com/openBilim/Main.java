@@ -1,11 +1,15 @@
 package com.openBilim;
 import static spark.Spark.port;
 
-
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import spark.Spark;
 
 import com.openBilim.HTTP_Handling.*;
+import com.openBilim.Tasks.MultipleChoiceTask;
+import com.openBilim.Tasks.SingleChoiceTask;
 import com.openBilim.Tasks.TextTask;
 import com.openBilim.Session_Handling.*;
 
@@ -32,8 +36,17 @@ UserSession sampleSession = new UserSession("1234", sampleTest, "Serega");
 
 
 sampleTest.pushTask(new TextTask("Введите число 1", "1"));
-sampleTest.pushTask(new TextTask("Введите число синий", "синий"));
-sampleTest.pushTask(new TextTask("Да", "Да"));
+List<String> sampleOptions = new ArrayList<String>();
+sampleOptions.add("a");
+sampleOptions.add("b");
+sampleOptions.add("c");
+sampleTest.pushTask(new SingleChoiceTask("Выбери вариант b", sampleOptions ,1));
+
+Set<Integer> rightOptions = new HashSet<Integer>();
+rightOptions.add(0);
+rightOptions.add(1);
+
+sampleTest.pushTask(new MultipleChoiceTask("Выбери варианты b, c", sampleOptions ,rightOptions));
 sampleSession.run();
 //__________________________________________________________--
 
