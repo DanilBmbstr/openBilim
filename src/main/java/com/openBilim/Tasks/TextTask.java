@@ -28,6 +28,7 @@ public class TextTask extends Task {
         router.handleTextAnswer(session_id, userToken, this, result -> {
             answerData.init(result.getUser(), result.answer, result.validation);
             resultCallback.accept(answerData);
+            
             ;
 
         });

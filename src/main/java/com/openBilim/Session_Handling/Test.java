@@ -24,7 +24,6 @@ public class Test {
         tasks.add(task);
     }
 
-    //Я потом переименую
     public Task popTask(){
         if(tasks.size() > 0 && taskIterator < tasks.size()){
         Task task = tasks.get(taskIterator);

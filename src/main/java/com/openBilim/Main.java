@@ -30,8 +30,10 @@ public static void main(String[] args)
 Test sampleTest = new Test("Subj", "Name");
 UserSession sampleSession = new UserSession("1234", sampleTest, "Serega");
 
-TextTask sampleTask = new TextTask("Введите число 1", "1");
-sampleTest.pushTask(sampleTask);
+
+sampleTest.pushTask(new TextTask("Введите число 1", "1"));
+sampleTest.pushTask(new TextTask("Введите число синий", "синий"));
+sampleTest.pushTask(new TextTask("Да", "Да"));
 sampleSession.run();
 //__________________________________________________________--
 

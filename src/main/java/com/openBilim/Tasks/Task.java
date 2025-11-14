@@ -8,7 +8,7 @@ import com.openBilim.HTTP_Handling.Router;
 
 public abstract class Task {
 
-    protected final Router router; 
+    protected Router router; 
     protected final AnswerData answerData;
     //Само задание
     private String taskText;
@@ -18,6 +18,8 @@ public abstract class Task {
 
     public abstract void handleAnswer(String session_id, String userToken, Consumer<AnswerData> resultCallback);
 
+    public Router getRouter(){return router;}
+    public void updateRouter(){router = new Router();}
     
     public Task(String taskText){
         this.taskText = taskText;

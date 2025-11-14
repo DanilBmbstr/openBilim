@@ -6,17 +6,17 @@ import java.util.Objects;
 public class User {
     private final String user_id;
     private final String fio;
-    private final Steing email;
+    private final String email;
     private final String role; //TEACHER //STUDENT
     private int correctAnswersCount = 0;
-    public User(String user_ud, String fio, String email, String role){
+    public User(String user_id, String fio, String email, String role){
         this.user_id = user_id;
         this.fio = fio;
         this.email =email;
         this.role = role;
     }
     // Геттеры
-    public String getUserId(){return user_ud; }
+    public String getUserId(){return user_id; }
     public String getFio(){return fio; }
     public String getEmail(){return email; }
     public String getRole(){return role; }
