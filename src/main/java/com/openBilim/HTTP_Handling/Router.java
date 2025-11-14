@@ -14,8 +14,8 @@ import com.openBilim.Tasks.*;
 
 public class Router {
 
-    public static void sendNewTask(Task task) {
-        get("/getTask", (req, res) -> task.getTaskText());
+    public static void sendNewTask(Task task, String session_id) {
+        get("/" + session_id + "/getTask", (req, res) -> task.getTaskText());
     }
 
     // Для разных типов ответа используем разные эндпоинты

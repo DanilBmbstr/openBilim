@@ -3,7 +3,7 @@ package com.openBilim.Session_Handling;
 import com.openBilim.HTTP_Handling.*;
 import com.openBilim.Tasks.*;
 
-public class UserSession{
+public class UserSession extends Thread {
     private String session_id;
     private Test test;
     private String user_token;
@@ -18,7 +18,7 @@ public class UserSession{
         new Thread(() -> {
             System.err.println("Запущена сессия: "+ session_id);
             Task current = test.popTask();
-            //Router.sendNewTask(current);
+            Router.sendNewTask(current, session_id);
             current.handleAnswer(session_id, result -> {
                 System.out.println("Пользователь " + result.userToken + " ответил на вопрос \n правильность: "
                         + result.validation);
