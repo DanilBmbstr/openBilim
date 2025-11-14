@@ -9,7 +9,15 @@ public class AnswerData extends AnswerRequest{
         this.answer = answer;
         this.validation = validation;
     }
+        public AnswerData(){
 
+    }
+
+    public void init(String userToken,String answer, boolean validation){
+        this.userToken = userToken;
+        this.answer = answer;
+        this.validation = validation;
+    }
     //private String task_Id;
 
 

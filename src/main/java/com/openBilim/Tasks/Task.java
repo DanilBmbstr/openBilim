@@ -4,8 +4,12 @@ import java.util.function.Consumer;
 
 import com.openBilim.HTTP_Handling.AnswerData;
 
+import com.openBilim.HTTP_Handling.Router;
+
 public abstract class Task {
 
+    protected final Router router; 
+    protected final AnswerData answerData;
     //Само задание
     private String taskText;
     
@@ -17,6 +21,8 @@ public abstract class Task {
     
     public Task(String taskText){
         this.taskText = taskText;
+        router = new Router();
+        answerData = new AnswerData();
     }
 
     public String getTaskText(){

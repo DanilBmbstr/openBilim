@@ -3,7 +3,8 @@ package com.openBilim.Tasks;
 import java.util.function.Consumer;
 
 import com.openBilim.HTTP_Handling.AnswerData;
-import com.openBilim.HTTP_Handling.Router;
+
+
 
 //Класс котоырй репрезентует задания, для которых требуется самостоятельный ввод правильного ответа в текстовое поле
 public class TextTask extends Task {
@@ -22,9 +23,11 @@ public class TextTask extends Task {
         return answer.equals(rightAnswer);
     };
 
+    @Override
     public void handleAnswer(String session_id,Consumer<AnswerData> resultCallback) {
-        Router.handleTextAnswer(session_id, this, result -> {
-            resultCallback.accept(new AnswerData(result.userToken, result.answer, result.validation));
+        router.handleTextAnswer(session_id, this, result -> {
+            answerData.init(result.userToken, result.answer, result.validation);
+            resultCallback.accept(answerData);
             ;
 
         });

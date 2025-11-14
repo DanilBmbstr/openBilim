@@ -20,7 +20,7 @@ public class Router {
 
     // Для разных типов ответа используем разные эндпоинты
     // Колбэк используется для обработки результата
-    public static void handleTextAnswer(String session_id, TextTask task, Consumer<AnswerData> resultCallback) {
+    public void handleTextAnswer(String session_id, TextTask task, Consumer<AnswerData> resultCallback) {
         post("/"+ session_id + "/textAns/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
@@ -33,7 +33,7 @@ public class Router {
         });
     }
 
-    public static void handleSingleChoiseAnswer(String session_id, SingleChoiceTask task, Consumer<AnswerData> resultCallback) {
+    public void handleSingleChoiseAnswer(String session_id, SingleChoiceTask task, Consumer<AnswerData> resultCallback) {
         post("/"+ session_id + "/singleChoise/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
@@ -46,7 +46,7 @@ public class Router {
         });
         
     }
-    public static void handleMultipleChoiseAnswer(String session_id, MultipleChoiceTask task, Consumer<AnswerData> resultCallback) {
+    public void handleMultipleChoiseAnswer(String session_id, MultipleChoiceTask task, Consumer<AnswerData> resultCallback) {
         post("/"+ session_id + "/multiChoise/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
