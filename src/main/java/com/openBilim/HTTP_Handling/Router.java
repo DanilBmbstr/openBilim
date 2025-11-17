@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openBilim.*;
 import com.openBilim.Tasks.*;
 
-import java.time.LocalTime;
+
 
 public class Router {
 
@@ -21,7 +21,7 @@ public class Router {
         Spark.unmap("/" + session_id + "/getTask");
         if(task != null) {
         get("/" + session_id + "/getTask", (req, res) -> {
-               System.out.println(task.getTaskText());
+               
             return task.getTaskText(); 
         });
         }

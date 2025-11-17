@@ -12,10 +12,13 @@ public class UserSession {
     private int taskIterator;
     Task current;
 
+        
+
     public UserSession(String id, Test test, String user) {
         session_id = id;
         this.test = test;
         user_token = user;
+        taskIterator = 0;
     }
 
     
@@ -24,7 +27,7 @@ public class UserSession {
 
         new Thread(() -> {
             System.err.println("Запущена сессия: " + session_id);
-            current = test.popTask();
+            current = test.getTask(taskIterator);
 
             if (current != null) {
                 current.getRouter().sendNewTask(current, session_id);
@@ -33,6 +36,7 @@ public class UserSession {
 
                         System.out.println("Пользователь " + result.getUser() + " ответил на вопрос \n правильность: "
                                 + result.validation);
+                        ++taskIterator;
                         this.run();
                     } else {
                         System.out.println("Произошла ошибка: неверный идентификатор пользователя");
