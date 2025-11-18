@@ -19,7 +19,7 @@ public class SingleChoiceTask extends Task {
         this.correctIndex = correctIndex;
     }
 
-    public List<String> getOptions() {
+    public @Override List<String> getOptions() {
         return options;
     }
 

@@ -1,5 +1,6 @@
 package com.openBilim.Tasks;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import com.openBilim.HTTP_Handling.AnswerData;
@@ -21,6 +22,8 @@ public abstract class Task {
 
     public abstract String getRightAnswer();
 
+    public abstract List<String> getOptions();
+
     public Router getRouter(){return router;}
     public void updateRouter(){router = new Router();}
     
@@ -30,6 +33,7 @@ public abstract class Task {
         answerData = new AnswerData();
     }
 
+    
     public String getTaskText(){
         return taskText;
     }

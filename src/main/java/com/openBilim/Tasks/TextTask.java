@@ -1,5 +1,6 @@
 package com.openBilim.Tasks;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import com.openBilim.HTTP_Handling.AnswerData;
@@ -33,6 +34,11 @@ public class TextTask extends Task {
 
         });
 
+    }
+
+    public @Override List<String> getOptions() {
+        System.err.println("method getOptions() is useless in TextTask class");
+        return null;
     }
     public String getRightAnswer(){return rightAnswer;}
 

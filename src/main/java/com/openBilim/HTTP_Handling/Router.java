@@ -13,29 +13,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openBilim.*;
 import com.openBilim.Tasks.*;
 import com.openBilim.HTTP_Handling.AnswerData;
-
+import com.openBilim.HTTP_Handling.TextTaskDTO;
+import com.openBilim.HTTP_Handling.ChoiseTaskDTO;
 
 public class Router {
 
-    
     public void sendNewTask(Task task, String session_id) {
         Spark.unmap("/" + session_id + "/getTask");
-        if(task != null) {
-        get("/" + session_id + "/getTask", (req, res) -> {
-               
-            return task.getTaskText(); 
-        });
-        }
-        else {
+        if (task != null) {
             get("/" + session_id + "/getTask", (req, res) -> {
-            return "Тест окончен"; 
-        });
+                ObjectMapper taskMapper = new ObjectMapper();
+                String json = null;
+                if (task.getClass() == MultipleChoiceTask.class || task.getClass() == SingleChoiceTask.class) {
+                    ChoiseTaskDTO dto = new ChoiseTaskDTO(task.getTaskText(), task.getOptions());
+                    json = taskMapper.writeValueAsString(dto);
+                } else if (task.getClass() == TextTask.class) {
+                    TextTaskDTO dto = new TextTaskDTO(task.getTaskText());
+                    json = taskMapper.writeValueAsString(dto);
+                }
+                return json;
+            });
+        } else {
+            get("/" + session_id + "/getTask", (req, res) -> {
+                return "Тест окончен";
+            });
         }
-     
+
     }
 
-    //Имеет такой же эндпоинт как и sendNewTask но вызывается когда задания закончились
-    
+    // Имеет такой же эндпоинт как и sendNewTask но вызывается когда задания
+    // закончились
+    public void sendTestResults(String session_id, List<AnswerData> answers, float score) {
+        Spark.unmap("/" + session_id + "/getTask");
+
+    }
 
     // Для разных типов ответа используем разные эндпоинты
     // Колбэк используется для обработки результата
@@ -52,7 +63,7 @@ public class Router {
             boolean eval;
 
             task.answer = answer.getAnswer();
-             
+
             if (answer.getUser().equals(userToken)) {
                 eval = task.validate();
                 resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
@@ -90,7 +101,7 @@ public class Router {
 
     public void handleMultipleChoiseAnswer(String session_id, String userToken, MultipleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
-                        Spark.unmap("/" + session_id + "/textAns/ans");
+        Spark.unmap("/" + session_id + "/textAns/ans");
         Spark.unmap("/" + session_id + "/singleChoise/ans");
         Spark.unmap("/" + session_id + "/multiChoise/ans");
         post("/" + session_id + "/multiChoise/ans", (spark.Request req, spark.Response res) -> {

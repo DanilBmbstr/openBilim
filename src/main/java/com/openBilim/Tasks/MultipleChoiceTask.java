@@ -21,7 +21,7 @@ public class MultipleChoiceTask extends Task {
         this.correctIndices = correctIndices;
     }
 
-    public List<String> getOptions() {
+    public @Override List<String> getOptions() {
         return options;
     }
 
