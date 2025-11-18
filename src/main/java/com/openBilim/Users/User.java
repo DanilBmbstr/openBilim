@@ -23,12 +23,13 @@ public class User {
     
     public int getCorrectAnswerCount(){return correctAnswersCount;}
     public boolean canCreateTests() {
-        return role == "TEACHER";
+    return "TEACHER".equals(role);
     }
 
     public boolean canViewAnalytics() {
-        return role == "TEACHER";
+    return "TEACHER".equals(role);
     }
+
     public void completeTest(int correctAnswers, int totalQuestions) {
         this.correctAnswersCount += correctAnswers;
         
