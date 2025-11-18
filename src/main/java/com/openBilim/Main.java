@@ -35,18 +35,18 @@ Test sampleTest = new Test("Subj", "Name");
 UserSession sampleSession = new UserSession("1234", sampleTest, "Serega");
 
 
-sampleTest.pushTask(new TextTask("Введите число 1", "1"));
+sampleTest.pushTask(new TextTask("Введите число 1", "1", 0.5));
 List<String> sampleOptions = new ArrayList<String>();
 sampleOptions.add("a");
 sampleOptions.add("b");
 sampleOptions.add("c");
-sampleTest.pushTask(new SingleChoiceTask("Выбери вариант b", sampleOptions ,1));
+sampleTest.pushTask(new SingleChoiceTask("Выбери вариант b", sampleOptions ,1, 1.0));
 
 Set<Integer> rightOptions = new HashSet<Integer>();
 rightOptions.add(0);
 rightOptions.add(1);
 
-sampleTest.pushTask(new MultipleChoiceTask("Выбери варианты a, b", sampleOptions ,rightOptions));
+sampleTest.pushTask(new MultipleChoiceTask("Выбери варианты a, b", sampleOptions ,rightOptions, 2.0));
 sampleSession.run();
 //__________________________________________________________--
 

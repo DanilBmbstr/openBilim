@@ -15,8 +15,8 @@ public class TextTask extends Task {
 
     public String answer;
 
-    public TextTask(String taskText, String rightAnswer) {
-        super(taskText);
+    public TextTask(String taskText, String rightAnswer, double points) {
+        super(taskText,points);
         this.rightAnswer = rightAnswer;
     }
 

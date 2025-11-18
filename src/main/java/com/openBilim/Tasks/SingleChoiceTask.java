@@ -13,8 +13,8 @@ public class SingleChoiceTask extends Task {
     private final int correctIndex; // индекс правильного варианта (0-based)
     public String selectedOption; // что прислал пользователь (строка из options)
 
-    public SingleChoiceTask(String taskText, List<String> options, int correctIndex) {
-        super(taskText);
+    public SingleChoiceTask(String taskText, List<String> options, int correctIndex, double points) {
+        super(taskText, points);
         this.options = options;
         this.correctIndex = correctIndex;
     }

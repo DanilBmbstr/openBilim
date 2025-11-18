@@ -15,6 +15,7 @@ import com.openBilim.Tasks.*;
 import com.openBilim.HTTP_Handling.AnswerData;
 import com.openBilim.HTTP_Handling.TextTaskDTO;
 import com.openBilim.HTTP_Handling.ChoiseTaskDTO;
+import com.openBilim.HTTP_Handling.TestResultDTO;
 
 public class Router {
 
@@ -45,7 +46,12 @@ public class Router {
     // закончились
     public void sendTestResults(String session_id, List<AnswerData> answers, float score) {
         Spark.unmap("/" + session_id + "/getTask");
-
+        get("/" + session_id + "/getTask", (req, res) -> {
+            TestResultDTO dto = new TestResultDTO(score);
+            ObjectMapper mapper = new ObjectMapper();
+            
+            return mapper.writeValueAsString(dto);
+        });
     }
 
     // Для разных типов ответа используем разные эндпоинты

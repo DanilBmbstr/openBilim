@@ -1,5 +1,7 @@
 package com.openBilim.Tasks;
 
+import static spark.Spark.port;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -13,7 +15,7 @@ public abstract class Task {
     protected final AnswerData answerData;
     //Само задание
     private String taskText;
-    
+    private double points;
     //Функция для проверки правильности ответа
     public abstract boolean validate();
 
@@ -24,13 +26,18 @@ public abstract class Task {
 
     public abstract List<String> getOptions();
 
+    public double getPoints(){
+        return points;
+    }
+
     public Router getRouter(){return router;}
     public void updateRouter(){router = new Router();}
     
-    public Task(String taskText){
+    public Task(String taskText, double points){
         this.taskText = taskText;
         router = new Router();
         answerData = new AnswerData();
+        this.points = points;
     }
 
     

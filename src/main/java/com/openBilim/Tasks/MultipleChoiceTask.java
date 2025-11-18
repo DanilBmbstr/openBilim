@@ -15,8 +15,8 @@ public class MultipleChoiceTask extends Task {
     public List<String> selectedOptions; ; // что прислал пользователь (массив строк) 
     //изменил selectedOptions на String, не очень хорошая практика, но так будет гораздо проще. Временное решение
 
-    public MultipleChoiceTask(String taskText, List<String> options, Set<Integer> correctIndices) {
-        super(taskText);
+    public MultipleChoiceTask(String taskText, List<String> options, Set<Integer> correctIndices, double points) {
+        super(taskText, points);
         this.options = options;
         this.correctIndices = correctIndices;
     }

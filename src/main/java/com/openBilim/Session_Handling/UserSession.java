@@ -12,6 +12,7 @@ public class UserSession {
     private String user_token;
     private int taskIterator;
     Task current;
+    public float score;
     private List<AnswerData> answers;
 
     public UserSession(String id, Test test, String user) {
@@ -36,7 +37,7 @@ public class UserSession {
                     ++taskIterator;
 
                     answers.add(result);
-
+                    if(result.validation) score += current.getPoints();
                     processTask();
                 } else {
                     System.out.println("Произошла ошибка: неверный идентификатор пользователя");
@@ -46,7 +47,7 @@ public class UserSession {
         } else {
             System.err.println("Тест окончен!");
             Router r = new Router();
-            r.sendNewTask(null, session_id);
+            r.sendTestResults(session_id, answers, score);
 
         }
  
