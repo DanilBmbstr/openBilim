@@ -19,7 +19,7 @@ import com.openBilim.HTTP_Handling.TestResultDTO;
 
 public class Router {
 
-    public void sendNewTask(Task task, String session_id) {
+    public synchronized void sendNewTask(Task task, String session_id) {
         Spark.unmap("/" + session_id + "/getTask");
         if (task != null) {
             get("/" + session_id + "/getTask", (req, res) -> {
@@ -44,7 +44,7 @@ public class Router {
 
     // Имеет такой же эндпоинт как и sendNewTask но вызывается когда задания
     // закончились
-    public void sendTestResults(String session_id, List<AnswerData> answers, float score) {
+    public synchronized void sendTestResults(String session_id, List<AnswerData> answers, float score) {
         Spark.unmap("/" + session_id + "/getTask");
         get("/" + session_id + "/getTask", (req, res) -> {
             TestResultDTO dto = new TestResultDTO(score);
@@ -56,7 +56,7 @@ public class Router {
 
     // Для разных типов ответа используем разные эндпоинты
     // Колбэк используется для обработки результата
-    public void handleTextAnswer(String session_id, String userToken, TextTask task,
+    public synchronized void handleTextAnswer(String session_id, String userToken, TextTask task,
             Consumer<AnswerData> resultCallback) {
         Spark.unmap("/" + session_id + "/textAns/ans");
         Spark.unmap("/" + session_id + "/singleChoise/ans");
@@ -82,7 +82,7 @@ public class Router {
         });
     }
 
-    public void handleSingleChoiseAnswer(String session_id, String userToken, SingleChoiceTask task,
+    public synchronized void handleSingleChoiseAnswer(String session_id, String userToken, SingleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
         Spark.unmap("/" + session_id + "/textAns/ans");
         Spark.unmap("/" + session_id + "/singleChoise/ans");
@@ -105,7 +105,7 @@ public class Router {
 
     }
 
-    public void handleMultipleChoiseAnswer(String session_id, String userToken, MultipleChoiceTask task,
+    public synchronized void handleMultipleChoiseAnswer(String session_id, String userToken, MultipleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
         Spark.unmap("/" + session_id + "/textAns/ans");
         Spark.unmap("/" + session_id + "/singleChoise/ans");

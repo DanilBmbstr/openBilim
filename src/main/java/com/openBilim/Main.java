@@ -33,7 +33,8 @@ public static void main(String[] args)
 //Проверка пользователя пока ещё не добавлена
 Test sampleTest = new Test("Subj", "Name");
 UserSession sampleSession = new UserSession("1234", sampleTest, "Serega");
-
+UserSession sampleSession2 = new UserSession("2345", sampleTest, "Andrew");
+UserSession sampleSession3 = new UserSession("3456", sampleTest, "Ramil");
 
 sampleTest.pushTask(new TextTask("Введите число 1", "1", 0.5));
 List<String> sampleOptions = new ArrayList<String>();
@@ -48,6 +49,9 @@ rightOptions.add(1);
 
 sampleTest.pushTask(new MultipleChoiceTask("Выбери варианты a, b", sampleOptions ,rightOptions, 2.0));
 sampleSession.run();
+sampleSession2.run();
+sampleSession3.run();
+
 //__________________________________________________________--
 
 
