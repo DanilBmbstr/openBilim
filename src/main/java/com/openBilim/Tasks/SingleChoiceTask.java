@@ -27,7 +27,7 @@ public class SingleChoiceTask extends Task {
     public boolean validate() {
         if (selectedOption == null)
             return false;
-        int selectedIndex = options.indexOf(selectedOption);
+        int selectedIndex = Integer.parseInt(selectedOption);
         return selectedIndex == correctIndex;
     }
 

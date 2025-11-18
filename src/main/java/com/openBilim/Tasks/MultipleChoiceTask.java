@@ -1,6 +1,7 @@
 // src/main/java/com/openBilim/Tasks/MultipleChoiceTask.java
 package com.openBilim.Tasks;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -29,11 +30,13 @@ public class MultipleChoiceTask extends Task {
     public boolean validate() {
         if (selectedOptions == null || selectedOptions.isEmpty()) return false;
 
-        Set<Integer> selectedIndices = selectedOptions.stream()
-                .map(options::indexOf)
-                .filter(i -> i>=0)
-                .collect(Collectors.toSet());
+        
+        Set<Integer> selectedIndices = new HashSet<>(); 
 
+        for(int i = 0; i < selectedOptions.size(); i++)
+        {
+            selectedIndices.add(Integer.parseInt(selectedOptions.get(i)));
+        }
         return selectedIndices.equals(correctIndices);
         
     }
