@@ -4,6 +4,7 @@ import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import spark.Spark;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openBilim.*;
 import com.openBilim.Tasks.*;
-
+import com.openBilim.HTTP_Handling.AnswerData;
 
 
 public class Router {
@@ -33,6 +34,9 @@ public class Router {
      
     }
 
+    //Имеет такой же эндпоинт как и sendNewTask но вызывается когда задания закончились
+    
+
     // Для разных типов ответа используем разные эндпоинты
     // Колбэк используется для обработки результата
     public void handleTextAnswer(String session_id, String userToken, TextTask task,
@@ -48,7 +52,7 @@ public class Router {
             boolean eval;
 
             task.answer = answer.getAnswer();
-
+             
             if (answer.getUser().equals(userToken)) {
                 eval = task.validate();
                 resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
@@ -95,7 +99,7 @@ public class Router {
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
             boolean eval;
 
-            task.selectedOptions = answer.getAnswer();
+            task.selectedOptions = AnswerRequest.parceMultipleChoise(answer.answer);
 
             if (answer.getUser().equals(userToken)) {
 

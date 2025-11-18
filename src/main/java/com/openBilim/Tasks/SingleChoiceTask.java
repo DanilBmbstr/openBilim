@@ -39,4 +39,5 @@ public class SingleChoiceTask extends Task {
 
         });
     }
+    public String getRightAnswer(){return String.valueOf(correctIndex);}
 }

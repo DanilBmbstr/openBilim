@@ -34,4 +34,6 @@ public class TextTask extends Task {
         });
 
     }
+    public String getRightAnswer(){return rightAnswer;}
+
 }

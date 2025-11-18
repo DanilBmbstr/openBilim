@@ -46,7 +46,7 @@ Set<Integer> rightOptions = new HashSet<Integer>();
 rightOptions.add(0);
 rightOptions.add(1);
 
-sampleTest.pushTask(new MultipleChoiceTask("Выбери варианты b, c", sampleOptions ,rightOptions));
+sampleTest.pushTask(new MultipleChoiceTask("Выбери варианты a, b", sampleOptions ,rightOptions));
 sampleSession.run();
 //__________________________________________________________--
 

@@ -18,6 +18,9 @@ public abstract class Task {
 
     public abstract void handleAnswer(String session_id, String userToken, Consumer<AnswerData> resultCallback);
 
+
+    public abstract String getRightAnswer();
+
     public Router getRouter(){return router;}
     public void updateRouter(){router = new Router();}
     
@@ -32,11 +35,6 @@ public abstract class Task {
     }
 
 
-/* 
- * Абстрактный класс ответа
- * 
- * Могут быть разные типы ответов поэтому мы используем вложенный класс
-*/
 
 
 
