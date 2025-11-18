@@ -12,7 +12,8 @@ import com.openBilim.Tasks.MultipleChoiceTask;
 import com.openBilim.Tasks.SingleChoiceTask;
 import com.openBilim.Tasks.TextTask;
 import com.openBilim.Session_Handling.*;
-
+import com.openBilim.Users.Auth;
+import com.openBilim.Users.User;
 
 class Main{
 
@@ -26,13 +27,19 @@ public static void main(String[] args)
 //___________________________________________________________________________________
 
 //
+List<User> usersList = new ArrayList<>();
+
+usersList.add(new User("Serj", "Сергей Владимирович Коротков", "БПО-29-02", "example@mail.ru", "123", "STUDENT"));
+usersList.add(new User("Andrew", "Андрей Вячеславович Дворянцев", "БПО-29-02", "example@mail.ru", "aaa", "STUDENT"));
+usersList.add(new User("Ramil", "Кунаев Рамиль Тарасович", "БПО-29-02", "example@mail.ru", "000", "STUDENT"));
 
 
+Auth.auth(usersList);
 
 //Создание теста + сессии, запуск сессии с айди 1234. Пример:
 //Проверка пользователя пока ещё не добавлена
 Test sampleTest = new Test("Subj", "Name");
-UserSession sampleSession = new UserSession("1234", sampleTest, "Serega");
+UserSession sampleSession = new UserSession("1234", sampleTest, "Serj");
 UserSession sampleSession2 = new UserSession("2345", sampleTest, "Andrew");
 UserSession sampleSession3 = new UserSession("3456", sampleTest, "Ramil");
 
