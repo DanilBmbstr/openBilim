@@ -26,19 +26,27 @@ public static void main(String[] args)
     Spark.init();
 //___________________________________________________________________________________
 
-//
-List<User> usersList = new ArrayList<>();
+//Списки пользователей и тестов
+Auth.userList = new ArrayList<>();
+List<Test> testList = new ArrayList<>();
 
-usersList.add(new User("Serj", "Сергей Владимирович Коротков", "БПО-29-02", "example@mail.ru", "123", "STUDENT"));
-usersList.add(new User("Andrew", "Андрей Вячеславович Дворянцев", "БПО-29-02", "example@mail.ru", "aaa", "STUDENT"));
-usersList.add(new User("Ramil", "Кунаев Рамиль Тарасович", "БПО-29-02", "example@mail.ru", "000", "STUDENT"));
+Auth.userList.add(new User("Serj", "Сергей Владимирович Коротков", "БПО-29-02", "example@mail.ru", "123", "STUDENT"));
+Auth.userList.add(new User("Andrew", "Андрей Вячеславович Дворянцев", "БПО-29-02", "example@mail.ru", "aaa", "STUDENT"));
+Auth.userList.add(new User("Ramil", "Кунаев Рамиль Тарасович", "БПО-29-02", "example@mail.ru", "000", "STUDENT"));
 
 
-Auth.auth(usersList);
+
+
+Auth.auth();
 
 //Создание теста + сессии, запуск сессии с айди 1234. Пример:
 //Проверка пользователя пока ещё не добавлена
-Test sampleTest = new Test("Subj", "Name");
+Test sampleTest = new Test("1","Subj", "Name");
+
+testList.add(sampleTest);
+
+SessionCreator.create(testList);
+
 UserSession sampleSession = new UserSession("1234", sampleTest, "Serj");
 UserSession sampleSession2 = new UserSession("2345", sampleTest, "Andrew");
 UserSession sampleSession3 = new UserSession("3456", sampleTest, "Ramil");

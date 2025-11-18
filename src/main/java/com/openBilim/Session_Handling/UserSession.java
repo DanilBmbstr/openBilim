@@ -23,6 +23,10 @@ public class UserSession {
         answers = new ArrayList<>();
     }
 
+    public synchronized String getToken(){
+        return session_id;
+    }
+
     public void processTask() {
         
         current = test.getTask(taskIterator);
