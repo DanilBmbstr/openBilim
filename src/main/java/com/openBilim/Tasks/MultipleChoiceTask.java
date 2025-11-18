@@ -31,6 +31,7 @@ public class MultipleChoiceTask extends Task {
 
         Set<Integer> selectedIndices = selectedOptions.stream()
                 .map(options::indexOf)
+                .filter(i -> i>=0)
                 .collect(Collectors.toSet());
 
         return selectedIndices.equals(correctIndices);
