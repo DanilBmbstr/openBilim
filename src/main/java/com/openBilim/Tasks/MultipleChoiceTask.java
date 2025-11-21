@@ -41,9 +41,9 @@ public class MultipleChoiceTask extends Task {
         
     }
 
-    public void handleAnswer(String session_id,String userToken, Consumer<AnswerData> resultCallback) {
-        router.handleMultipleChoiseAnswer(session_id, userToken,this, result -> {
-            answerData.init(result.getUser(), result.answer, result.validation);
+    public void handleAnswer(String session_id,String user_id, Consumer<AnswerData> resultCallback) {
+        router.handleMultipleChoiseAnswer(session_id, user_id,this, result -> {
+            answerData.init(result.getUserId(), result.answer, result.validation);
             resultCallback.accept(answerData);
 
         });

@@ -1,11 +1,13 @@
 package com.openBilim.HTTP_Handling;
 
 
-public class AnswerData extends AnswerRequest{
+public class AnswerData{
 
+    public String user_id;
+    public String answer;
 
-    public AnswerData(String userToken,String answer, boolean validation){
-        this.userToken = userToken;
+    public AnswerData(String user_id,String answer, boolean validation){
+        this.user_id = user_id;
         this.answer = answer;
         this.validation = validation;
     }
@@ -13,8 +15,8 @@ public class AnswerData extends AnswerRequest{
 
     }
 
-    public void init(String userToken,String answer, boolean validation){
-        this.userToken = userToken;
+    public void init(String user_id,String answer, boolean validation){
+        this.user_id = user_id;
         this.answer = answer;
         this.validation = validation;
     }
@@ -23,9 +25,10 @@ public class AnswerData extends AnswerRequest{
 
     public boolean validation;
 
-    public String getUser(){return userToken;}
-    public String getAnswer(){return answer;}
 
-    public void setUser (String user_id){this.userToken = user_id;}
+    public String getAnswer(){return answer;}
+    public String getUserId(){return user_id;}
+
+    public void setUser (String user_id){this.user_id = user_id;}
     public void setAnswer(String answer) {this.answer = answer;}
 }

@@ -16,6 +16,7 @@ import com.openBilim.HTTP_Handling.AnswerData;
 import com.openBilim.HTTP_Handling.TextTaskDTO;
 import com.openBilim.HTTP_Handling.ChoiseTaskDTO;
 import com.openBilim.HTTP_Handling.TestResultDTO;
+import com.openBilim.Users.Authorization.JWT_Util;
 
 public class Router {
 
@@ -56,12 +57,15 @@ public class Router {
 
     // Для разных типов ответа используем разные эндпоинты
     // Колбэк используется для обработки результата
-    public synchronized void handleTextAnswer(String session_id, String userToken, TextTask task,
+    public synchronized void handleTextAnswer(String session_id, String user_id, TextTask task,
             Consumer<AnswerData> resultCallback) {
+                
         Spark.unmap("/" + session_id + "/textAns/ans");
         Spark.unmap("/" + session_id + "/singleChoise/ans");
         Spark.unmap("/" + session_id + "/multiChoise/ans");
+        
         post("/" + session_id + "/textAns/ans", (spark.Request req, spark.Response res) -> {
+            System.err.println("Ждём ответа от " + user_id);
             ObjectMapper objectMapper = new ObjectMapper();
 
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
@@ -70,9 +74,9 @@ public class Router {
 
             task.answer = answer.getAnswer();
 
-            if (answer.getUser().equals(userToken)) {
+            if (JWT_Util.validateAndGetUserId(answer.getUserToken()).equals(user_id)) {
                 eval = task.validate();
-                resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
+                resultCallback.accept(new AnswerData(JWT_Util.validateAndGetUserId(answer.getUserToken()), answer.answer, eval));
                 return (String.valueOf(eval));
             } else {
                 resultCallback.accept(new AnswerData(null, "Wrong user", false));
@@ -82,7 +86,7 @@ public class Router {
         });
     }
 
-    public synchronized void handleSingleChoiseAnswer(String session_id, String userToken, SingleChoiceTask task,
+    public synchronized void handleSingleChoiseAnswer(String session_id, String user_id, SingleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
         Spark.unmap("/" + session_id + "/textAns/ans");
         Spark.unmap("/" + session_id + "/singleChoise/ans");
@@ -92,9 +96,9 @@ public class Router {
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
             boolean eval;
             task.selectedOption = answer.getAnswer();
-            if (answer.getUser().equals(userToken)) {
+            if (JWT_Util.validateAndGetUserId(answer.getUserToken()).equals(user_id)) {
                 eval = task.validate();
-                resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
+                resultCallback.accept(new AnswerData(JWT_Util.validateAndGetUserId(answer.getUserToken()), answer.answer, eval));
                 return (String.valueOf(eval));
             } else {
                 resultCallback.accept(null);
@@ -105,7 +109,7 @@ public class Router {
 
     }
 
-    public synchronized void handleMultipleChoiseAnswer(String session_id, String userToken, MultipleChoiceTask task,
+    public synchronized void handleMultipleChoiseAnswer(String session_id, String user_id, MultipleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
         Spark.unmap("/" + session_id + "/textAns/ans");
         Spark.unmap("/" + session_id + "/singleChoise/ans");
@@ -118,10 +122,10 @@ public class Router {
 
             task.selectedOptions = AnswerRequest.parceMultipleChoise(answer.answer);
 
-            if (answer.getUser().equals(userToken)) {
+            if (JWT_Util.validateAndGetUserId(answer.getUserToken()).equals(user_id)) {
 
                 eval = task.validate();
-                resultCallback.accept(new AnswerData(answer.getUser(), answer.answer, eval));
+                resultCallback.accept(new AnswerData(JWT_Util.validateAndGetUserId(answer.getUserToken()), answer.answer, eval));
                 return (String.valueOf(eval));
             } else {
                 resultCallback.accept(null);

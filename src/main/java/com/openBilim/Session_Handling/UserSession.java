@@ -9,7 +9,7 @@ import java.util.List;
 public class UserSession {
     private String session_id;
     private Test test;
-    private String user_token;
+    private String user_id;
     private int taskIterator;
     Task current;
     public float score;
@@ -18,7 +18,7 @@ public class UserSession {
     public UserSession(String id, Test test, String user) {
         session_id = id;
         this.test = test;
-        user_token = user;
+        user_id = user;
         taskIterator = 0;
         answers = new ArrayList<>();
     }
@@ -33,10 +33,10 @@ public class UserSession {
 
         if (current != null) {
             current.getRouter().sendNewTask(current, session_id);
-            current.handleAnswer(session_id, user_token, result -> {
-                if (result.getUser() != null) {
+            current.handleAnswer(session_id, user_id, result -> {
+                if (result.getUserId() != null) {
 
-                    System.out.println("Пользователь " + result.getUser() + " ответил на вопрос \n правильность: "
+                    System.out.println("Пользователь " + result.getUserId() + " ответил на вопрос \n правильность: "
                             + result.validation);
                     ++taskIterator;
 

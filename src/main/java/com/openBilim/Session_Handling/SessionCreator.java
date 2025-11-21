@@ -1,9 +1,10 @@
 package com.openBilim.Session_Handling;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.openBilim.Users.Auth;
-import com.openBilim.Users.LoginDTO;
 import com.openBilim.Users.UserDTO;
+import com.openBilim.Users.Authorization.Auth;
+import com.openBilim.Users.Authorization.JWT_Util;
+import com.openBilim.Users.Authorization.LoginDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,7 @@ public class SessionCreator {
             SessionDTO dto = objectMapper.readValue(req.body(), SessionDTO.class);
 
             for (int i = 0; i < Auth.userList.size(); i++) {
-                if (dto.user_token.equals(Auth.userList.get(i).getUserId())) {
-
+                if (JWT_Util.validateAndGetUserId(dto.user_token).equals(Auth.userList.get(i).getUserId())) {
                     break;
                 }
                 if (i == Auth.userList.size()) {
@@ -44,8 +44,8 @@ public class SessionCreator {
                     } else {
                         token = String.valueOf(Integer.parseInt(sessionList.getLast().getToken()) + 1);
                     }
-                    sessionList.add(new UserSession(token, testList.get(i), dto.user_token));
-                    sessionList.getLast().processTask();
+                    sessionList.add(new UserSession(token, testList.get(i), JWT_Util.validateAndGetUserId(dto.user_token) ));
+                    sessionList.getLast().run();
                     ;
 
                     TestDTO testDTO = new TestDTO(testList.get(i).getSubject(), testList.get(i).getName(),
