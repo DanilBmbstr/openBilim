@@ -4,11 +4,11 @@ public class TestDTO {
     public String subject;
     public String testName;
     public int tasksNumber;
-    public String sessionToken;
-    public TestDTO(String subject, String testName, int tasksNumber, String sessionToken){
+    public String session_id;
+    public TestDTO(String subject, String testName, int tasksNumber, String session_id){
         this.subject = subject;
         this.testName = testName;
         this.tasksNumber = tasksNumber;
-        this.sessionToken = sessionToken;
+        this.session_id = session_id;
     }
 }

@@ -23,7 +23,7 @@ public class UserSession {
         answers = new ArrayList<>();
     }
 
-    public synchronized String getToken(){
+    public synchronized String get_id(){
         return session_id;
     }
 

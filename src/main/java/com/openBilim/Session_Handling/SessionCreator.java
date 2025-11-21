@@ -42,7 +42,7 @@ public class SessionCreator {
                     if (sessionList.size() == 0) {
                         token = "0";
                     } else {
-                        token = String.valueOf(Integer.parseInt(sessionList.getLast().getToken()) + 1);
+                        token = String.valueOf(Integer.parseInt(sessionList.getLast().get_id()) + 1);
                     }
                     sessionList.add(new UserSession(token, testList.get(i), JWT_Util.validateAndGetUserId(dto.user_token) ));
                     sessionList.getLast().run();
