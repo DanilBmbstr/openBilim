@@ -30,7 +30,7 @@ public static List<User> userList;
                         
                         userDTO = new UserDTO(userList.get(i).getFio(),userList.get(i).getUserId(),userList.get(i).getGroup());
                         //return objectMapper.writeValueAsString(userDTO);
-                        return JWT_Util.createTokenWithClaims(userList.get(i).getUserId(), userList.get(i).getRole());
+                        return JWT_Util.createTokenWithClaims(userList.get(i).getEmail(),userList.get(i).getUserId(),userList.get(i).getFio(),  userList.get(i).getRole());
                     }
                 }
             }
@@ -42,8 +42,8 @@ public static List<User> userList;
 
 
     public static synchronized void validate(){
-        post("/vailidate", (spark.Request req, spark.Response res) -> {
-            return     JWT_Util.validateAndGetUserId(req.body())
+        post("/validate", (spark.Request req, spark.Response res) -> {
+            return     JWT_Util.validate(req.body())
 ;
 
         });

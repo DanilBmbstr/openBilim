@@ -6,7 +6,7 @@ public class AnswerRequest {
     //private String task_Id;
     public String answer;
 
-    public String getUserToken(){System.out.println(user_token);return user_token; }
+    public String getUserToken(){return user_token; }
     public String getAnswer(){return answer;}
 
     public void setUser (String user_id){this.user_token = user_id;}
