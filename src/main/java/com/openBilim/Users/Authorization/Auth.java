@@ -10,6 +10,7 @@ import com.openBilim.HTTP_Handling.AnswerRequest;
 import com.openBilim.Users.User;
 import com.openBilim.Users.UserDTO;
 import com.openBilim.Users.Authorization.JWT_Util;
+import com.openBilim.Users.Authorization.Hash;
 
 import java.util.List;
 public class Auth {
@@ -26,7 +27,7 @@ public static List<User> userList;
             UserDTO userDTO;
             for(int i = 0; i < userList.size(); i++){
                 if(userList.get(i).getEmail().equals(login.login)){
-                    if(userList.get(i).getPassword().equals(login.password)){
+                    if(userList.get(i).getPasswordHash().equals( Hash.hashString(Hash.hashString(login.password, "SHA-256") + userList.get(i).getPasswordSalt(), "SHA-256"))){
                         
                         userDTO = new UserDTO(userList.get(i).getFio(),userList.get(i).getUserId(),userList.get(i).getGroup());
                         //return objectMapper.writeValueAsString(userDTO);
