@@ -31,7 +31,7 @@ public static List<User> userList;
                         
                         userDTO = new UserDTO(userList.get(i).getFio(),userList.get(i).getUserId(),userList.get(i).getGroup());
                         //return objectMapper.writeValueAsString(userDTO);
-                        return JWT_Util.createTokenWithClaims(userList.get(i).getEmail(),userList.get(i).getUserId(),userList.get(i).getFio(),  userList.get(i).getRole());
+                        return JWT_Util.createTokenWithClaims(userList.get(i).getEmail(),userList.get(i).getRole(),userList.get(i).getFio(),  userList.get(i).getUserId());
                     }
                 }
             }

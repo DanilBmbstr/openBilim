@@ -12,8 +12,8 @@ public class JWT_Util {
 public static String createTokenWithClaims(String login,  String role, String name, String id) {
     return Jwts.builder()
             .setSubject(login)
-            .claim("name", role)   
-            .claim("id", role)   
+            .claim("name", name)   
+            .claim("id", id)   
             .claim("role", role)                    // кастомный claim
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 час
