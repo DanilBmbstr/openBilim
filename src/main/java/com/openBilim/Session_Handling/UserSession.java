@@ -5,8 +5,11 @@ import com.openBilim.Tasks.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.openBilim.LOGGER;
 public class UserSession {
+
+
+
     private String session_id;
     private Test test;
     private String user_id;
@@ -36,7 +39,7 @@ public class UserSession {
             current.handleAnswer(session_id, user_id, result -> {
                 if (result.getUserId() != null) {
 
-                    System.out.println("Пользователь " + result.getUserId() + " ответил на вопрос \n правильность: "
+                    LOGGER.info("Пользователь " + result.getUserId() + " ответил на вопрос \n правильность: "
                             + result.validation);
                     ++taskIterator;
 
@@ -44,12 +47,12 @@ public class UserSession {
                     if(result.validation) score += current.getPoints();
                     processTask();
                 } else {
-                    System.out.println("Произошла ошибка: неверный идентификатор пользователя");
+                    LOGGER.warning("Произошла ошибка: неверный идентификатор пользователя");
                 }
 
             });
         } else {
-            System.err.println("Тест окончен!");
+            LOGGER.info("Тест окончен!");
             Router r = new Router();
             r.sendTestResults(session_id, answers, score);
 
@@ -60,7 +63,7 @@ public class UserSession {
     public void run() {
 
         new Thread(() -> {
-            System.err.println("Запущена сессия: " + session_id);
+            LOGGER.info("Запущена сессия: " + session_id);
             processTask();
         }).start();
     }

@@ -1,6 +1,10 @@
 package com.openBilim;
 import static spark.Spark.port;
 
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
@@ -14,12 +18,17 @@ import com.openBilim.Tasks.TextTask;
 import com.openBilim.Session_Handling.*;
 import com.openBilim.Users.User;
 import com.openBilim.Users.Authorization.*;
-
+import com.openBilim.LOGGER;
 
 class Main{
 
+    
+
 public static void main(String[] args)
 {
+
+
+    
     
 //___________________________________Запуск сервера
     port(Integer.parseInt(args[0]));
@@ -69,8 +78,7 @@ sampleTest.pushTask(new MultipleChoiceTask("Выбери варианты a, b",
 
 
 
-
-    System.out.println("Сервер успешно запущен на порте " + port());
+LOGGER.info("Сервер успешно запущен на порте " + port());
 
     
 

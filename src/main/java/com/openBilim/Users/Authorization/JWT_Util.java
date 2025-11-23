@@ -4,12 +4,18 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import javax.crypto.SecretKey;
 import java.util.Date;
+import com.openBilim.LOGGER;
+
 
 public class JWT_Util {
+
+
+
     private static final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final long EXPIRATION = 86400000; // 24 часа
 
 public static String createTokenWithClaims(String login,  String role, String name, String id) {
+    LOGGER.info("Создание Токена пользователя: " + id);
     return Jwts.builder()
             .setSubject(login)
             .claim("name", name)   
@@ -19,26 +25,36 @@ public static String createTokenWithClaims(String login,  String role, String na
             .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 час
             .signWith(key)
             .compact();
+
+    
 }
 
         public static String validateAndGetUserId(String token) {
+            try{
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
         
+
+        LOGGER.info("Успешно валидирован пользователь " + claims.get("id", String.class));
         return claims.get("id", String.class);
+        }
+        catch(Exception e){LOGGER.warning( "Ошибка валидации: " + e.getMessage()); return null;}
     }
 
        public static String validate(String token) {
+        try{
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        
+        LOGGER.info("Успешно валидирован пользователь " + claims.get("id", String.class));
         return claims.toString();
+        }
+        catch(Exception e) {LOGGER.warning( "Ошибка валидации: " + e.getMessage()); return null;}
     }
 
     
