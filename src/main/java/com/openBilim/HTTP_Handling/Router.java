@@ -26,10 +26,15 @@ public class Router {
             get("/" + session_id + "/getTask", (req, res) -> {
                 ObjectMapper taskMapper = new ObjectMapper();
                 String json = null;
-                if (task.getClass() == MultipleChoiceTask.class || task.getClass() == SingleChoiceTask.class) {
-                    ChoiseTaskDTO dto = new ChoiseTaskDTO(task.getTaskText(), task.getOptions());
+                if (task.getClass() == MultipleChoiceTask.class) {
+                    ChoiseTaskDTO dto = new ChoiseTaskDTO("MultipleChoise", task.getTaskText(), task.getOptions());
                     json = taskMapper.writeValueAsString(dto);
-                } else if (task.getClass() == TextTask.class) {
+                }
+                else if(task.getClass() == SingleChoiceTask.class){
+                    ChoiseTaskDTO dto = new ChoiseTaskDTO("SingleChoise", task.getTaskText(), task.getOptions());
+                    json = taskMapper.writeValueAsString(dto);
+                } 
+                else if (task.getClass() == TextTask.class) {
                     TextTaskDTO dto = new TextTaskDTO(task.getTaskText());
                     json = taskMapper.writeValueAsString(dto);
                 }
@@ -65,7 +70,7 @@ public class Router {
         Spark.unmap("/" + session_id + "/multiChoise/ans");
         
         post("/" + session_id + "/textAns/ans", (spark.Request req, spark.Response res) -> {
-            System.err.println("Ждём ответа от " + user_id);
+            
             ObjectMapper objectMapper = new ObjectMapper();
 
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);

@@ -17,7 +17,7 @@ public class SessionCreator {
 
     public static List<UserSession> sessionList;
 
-    public static void create(List<Test> testList) {
+    public static synchronized void create(List<Test> testList) {
         if (sessionList == null) {
             sessionList = new ArrayList<>();
         }
