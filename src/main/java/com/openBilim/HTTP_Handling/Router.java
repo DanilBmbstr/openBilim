@@ -1,6 +1,8 @@
 package com.openBilim.HTTP_Handling;
 
+import static spark.Spark.before;
 import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.post;
 
 import java.util.List;
@@ -20,8 +22,9 @@ import com.openBilim.Users.Authorization.JWT_Util;
 public class Router {
 
 
+
     public static synchronized void getAvailableTests(List<Test> testsList){
-        Spark.unmap("/getAvailableTests");
+        unmap("/getAvailableTests");
         AvailableTests result = new AvailableTests();
         post("/getAvailableTests", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -40,7 +43,7 @@ public class Router {
     }
 
     public synchronized void sendNewTask(Task task, String session_id) {
-        Spark.unmap("/" + session_id + "/getTask");
+        unmap("/" + session_id + "/getTask");
         if (task != null) {
             get("/" + session_id + "/getTask", (req, res) -> {
                 ObjectMapper taskMapper = new ObjectMapper();
@@ -70,7 +73,7 @@ public class Router {
     // Имеет такой же эндпоинт как и sendNewTask но вызывается когда задания
     // закончились
     public synchronized void sendTestResults(String session_id, List<AnswerData> answers, float score) {
-        Spark.unmap("/" + session_id + "/getTask");
+       unmap("/" + session_id + "/getTask");
         get("/" + session_id + "/getTask", (req, res) -> {
             TestResultDTO dto = new TestResultDTO(score);
             ObjectMapper mapper = new ObjectMapper();
@@ -84,9 +87,9 @@ public class Router {
     public synchronized void handleTextAnswer(String session_id, String user_id, TextTask task,
             Consumer<AnswerData> resultCallback) {
                 
-        Spark.unmap("/" + session_id + "/textAns/ans");
-        Spark.unmap("/" + session_id + "/singleChoise/ans");
-        Spark.unmap("/" + session_id + "/multiChoise/ans");
+     unmap("/" + session_id + "/textAns/ans");
+     unmap("/" + session_id + "/singleChoise/ans");
+     unmap("/" + session_id + "/multiChoise/ans");
         
         post("/" + session_id + "/textAns/ans", (spark.Request req, spark.Response res) -> {
             
@@ -112,9 +115,9 @@ public class Router {
 
     public synchronized void handleSingleChoiseAnswer(String session_id, String user_id, SingleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
-        Spark.unmap("/" + session_id + "/textAns/ans");
-        Spark.unmap("/" + session_id + "/singleChoise/ans");
-        Spark.unmap("/" + session_id + "/multiChoise/ans");
+ unmap("/" + session_id + "/textAns/ans");
+ unmap("/" + session_id + "/singleChoise/ans");
+ unmap("/" + session_id + "/multiChoise/ans");
         post("/" + session_id + "/singleChoise/ans", (spark.Request req, spark.Response res) -> {
             ObjectMapper objectMapper = new ObjectMapper();
             AnswerRequest answer = objectMapper.readValue(req.body(), AnswerRequest.class);
@@ -135,9 +138,9 @@ public class Router {
 
     public synchronized void handleMultipleChoiseAnswer(String session_id, String user_id, MultipleChoiceTask task,
             Consumer<AnswerData> resultCallback) {
-        Spark.unmap("/" + session_id + "/textAns/ans");
-        Spark.unmap("/" + session_id + "/singleChoise/ans");
-        Spark.unmap("/" + session_id + "/multiChoise/ans");
+ unmap("/" + session_id + "/textAns/ans");
+ unmap("/" + session_id + "/singleChoise/ans");
+ unmap("/" + session_id + "/multiChoise/ans");
         post("/" + session_id + "/multiChoise/ans", (spark.Request req, spark.Response res) -> {
 
             ObjectMapper objectMapper = new ObjectMapper();
@@ -159,4 +162,30 @@ public class Router {
         });
 
     }
+
+
+    private static void unmap(String path){
+        Spark.unmap(path); 
+               options("/*",
+        (request, response) -> {
+
+            String accessControlRequestHeaders = request
+                    .headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers",
+                        accessControlRequestHeaders);
+            }
+
+            String accessControlRequestMethod = request
+                    .headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods",
+                        accessControlRequestMethod);
+            }
+
+            return "OK";
+        });
+
+before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+}
 }

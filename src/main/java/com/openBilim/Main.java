@@ -77,6 +77,8 @@ Auth.auth();
 Auth.validate();
 Auth.validateAndGetJson();
 
+Router.getAvailableTests(testList);
+
 //Создание теста + сессии, запуск сессии с айди 1234. Пример:
 //Проверка пользователя пока ещё не добавлена
 Test sampleTest = new Test("1","Subj", "Name");
