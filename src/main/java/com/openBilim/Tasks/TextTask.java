@@ -9,7 +9,7 @@ import com.openBilim.HTTP_Handling.AnswerData;
 
 //Класс котоырй репрезентует задания, для которых требуется самостоятельный ввод правильного ответа в текстовое поле
 public class TextTask extends Task {
-    private String taskText;
+
 
     private String rightAnswer;
 

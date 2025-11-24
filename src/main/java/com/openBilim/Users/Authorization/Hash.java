@@ -3,7 +3,7 @@ package com.openBilim.Users.Authorization;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
+
 
 public class Hash {
     public static String hashString(String input, String algorithm) {

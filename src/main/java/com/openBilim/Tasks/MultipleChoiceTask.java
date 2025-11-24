@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+
 
 import com.openBilim.HTTP_Handling.AnswerData;
-import com.openBilim.HTTP_Handling.Router;
+
 
 public class MultipleChoiceTask extends Task {
     private final List<String> options;

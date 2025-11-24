@@ -1,6 +1,6 @@
 package com.openBilim.Tasks;
 
-import static spark.Spark.port;
+
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,7 +19,7 @@ public abstract class Task {
     //Функция для проверки правильности ответа
     public abstract boolean validate();
 
-    public abstract void handleAnswer(String session_id, String userToken, Consumer<AnswerData> resultCallback);
+    public abstract void handleAnswer(String session_id, String user_id, Consumer<AnswerData> resultCallback);
 
 
     public abstract String getRightAnswer();

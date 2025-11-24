@@ -1,7 +1,7 @@
 package com.openBilim.Users;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
+
+
 import com.openBilim.Users.Authorization.Hash;;
 
 public class User {

@@ -1,24 +1,43 @@
 package com.openBilim.HTTP_Handling;
 
 import static spark.Spark.get;
-import static spark.Spark.port;
 import static spark.Spark.post;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 import spark.Spark;
-import com.fasterxml.jackson.core.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.openBilim.*;
+import com.openBilim.Session_Handling.AvailableTests;
+import com.openBilim.Session_Handling.Test;
+
+import com.openBilim.Session_Handling.UnstartedTestDTO;
 import com.openBilim.Tasks.*;
-import com.openBilim.HTTP_Handling.AnswerData;
-import com.openBilim.HTTP_Handling.TextTaskDTO;
-import com.openBilim.HTTP_Handling.ChoiseTaskDTO;
-import com.openBilim.HTTP_Handling.TestResultDTO;
+
 import com.openBilim.Users.Authorization.JWT_Util;
 
 public class Router {
+
+
+    public static synchronized void getAvailableTests(List<Test> testsList){
+        Spark.unmap("/getAvailableTests");
+        AvailableTests result = new AvailableTests();
+        post("/getAvailableTests", (spark.Request req, spark.Response res) -> {
+            ObjectMapper objectMapper = new ObjectMapper();
+            if (JWT_Util.validate(req.body()) != null){
+                result.tests = new UnstartedTestDTO[testsList.size()];
+                for(int i = 0; i < testsList.size(); i++)
+                {
+                    result.tests[i] = new UnstartedTestDTO(testsList.get(i).getSubject(),testsList.get(i).getName(), testsList.get(i).getTasksNumber(), testsList.get(i).getId());
+                }
+            return objectMapper.writeValueAsString(result);}
+            else {return "Invalid Token";}
+            
+        });
+        
+
+    }
 
     public synchronized void sendNewTask(Task task, String session_id) {
         Spark.unmap("/" + session_id + "/getTask");

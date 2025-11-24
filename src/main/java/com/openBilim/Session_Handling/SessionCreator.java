@@ -1,16 +1,15 @@
 package com.openBilim.Session_Handling;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.openBilim.Users.UserDTO;
+
 import com.openBilim.Users.Authorization.Auth;
 import com.openBilim.Users.Authorization.JWT_Util;
-import com.openBilim.Users.Authorization.LoginDTO;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static spark.Spark.get;
-import static spark.Spark.port;
+
 import static spark.Spark.post;
 
 public class SessionCreator {
