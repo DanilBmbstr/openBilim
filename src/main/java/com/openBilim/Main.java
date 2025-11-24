@@ -1,26 +1,28 @@
 package com.openBilim;
-
+import static spark.Spark.after;
 import static spark.Spark.before;
 import static spark.Spark.options;
 import static spark.Spark.port;
 
-
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 import spark.Spark;
+import spark.Filter;
 
-
-
+import com.openBilim.HTTP_Handling.*;
 import com.openBilim.Tasks.MultipleChoiceTask;
 import com.openBilim.Tasks.SingleChoiceTask;
 import com.openBilim.Tasks.TextTask;
-import com.openBilim.HTTP_Handling.Router;
 import com.openBilim.Session_Handling.*;
 import com.openBilim.Users.User;
 import com.openBilim.Users.Authorization.*;
-
+import com.openBilim.LOGGER;
 
 class Main{
 
@@ -35,7 +37,7 @@ public static void main(String[] args)
 //___________________________________Запуск сервера
     port(Integer.parseInt(args[0]));
     try{
-    Spark.init();
+   // Spark.init();
 
          options("/*",
         (request, response) -> {
@@ -74,9 +76,6 @@ Auth.userList.add(new User("Ramil", "Кунаев Рамиль Тарасови�
 Auth.auth();
 Auth.validate();
 Auth.validateAndGetJson();
-
-
-Router.getAvailableTests(testList);
 
 //Создание теста + сессии, запуск сессии с айди 1234. Пример:
 //Проверка пользователя пока ещё не добавлена

@@ -9,7 +9,7 @@ import com.openBilim.LOGGER;
 public class UserSession {
 
 
-
+    private boolean finished;
     private String session_id;
     private Test test;
     private String user_id;
@@ -24,6 +24,11 @@ public class UserSession {
         user_id = user;
         taskIterator = 0;
         answers = new ArrayList<>();
+        finished = false;
+    }
+
+    public synchronized String getUserId(){
+        return user_id;
     }
 
     public synchronized String get_id(){
@@ -54,10 +59,15 @@ public class UserSession {
         } else {
             LOGGER.info("Тест окончен!");
             Router r = new Router();
+            finished = true;
             r.sendTestResults(session_id, answers, score);
 
         }
  
+    }
+
+    public boolean isFinished(){
+        return finished;
     }
 
     public void run() {

@@ -25,13 +25,21 @@ public class SessionCreator {
             ObjectMapper objectMapper = new ObjectMapper();
 
             SessionDTO dto = objectMapper.readValue(req.body(), SessionDTO.class);
-
+            String userId = JWT_Util.validateAndGetUserId(dto.user_token); 
             for (int i = 0; i < Auth.userList.size(); i++) {
-                if (JWT_Util.validateAndGetUserId(dto.user_token).equals(Auth.userList.get(i).getUserId())) {
+                if (userId.equals(Auth.userList.get(i).getUserId())) {
                     break;
                 }
                 if (i == Auth.userList.size()) {
                     return "Error! User does not exist";
+                }
+            }
+
+            for(int i = 0; i < sessionList.size(); i++)
+            {
+                if(userId.equals(sessionList.get(i).getUserId())){
+                if(!sessionList.get(i).isFinished())
+                return("Error: This user has unfinished session");
                 }
             }
 
