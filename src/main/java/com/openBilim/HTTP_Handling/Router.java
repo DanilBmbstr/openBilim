@@ -163,7 +163,8 @@ public class Router {
 
     }
 
-
+//Перезагружаем настройки CORS после каждогог unmap
+//почему-то unmap их сбрасывает
     private static void unmap(String path){
         Spark.unmap(path); 
                options("/*",
