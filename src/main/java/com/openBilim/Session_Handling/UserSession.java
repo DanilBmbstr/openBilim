@@ -18,6 +18,11 @@ public class UserSession {
     public float score;
     private List<AnswerData> answers;
 
+
+    public Test getTest(){
+        return test;
+    }
+
     public UserSession(String id, Test test, String user) {
         session_id = id;
         this.test = test;

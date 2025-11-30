@@ -18,6 +18,16 @@ public class Test {
         this.test_id = test_id;
     }
 
+    public double getMaxScore()
+    {
+        double result = 0;
+        for(int i = 0; i < tasks.size(); i++)
+        {
+            result += tasks.get(i).getPoints();
+        }
+        return result;
+    }
+
     public String getSubject()
     {
         return subject;

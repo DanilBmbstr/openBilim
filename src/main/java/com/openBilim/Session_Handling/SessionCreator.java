@@ -16,6 +16,15 @@ public class SessionCreator {
 
     public static List<UserSession> sessionList;
 
+    public static synchronized UserSession getExistingSession(String id){
+        for(int i = 0; i < sessionList.size(); i++)
+        {
+            if(sessionList.get(i).get_id().equals(id)){return sessionList.get(i); }
+        }
+        return null;
+    }
+
+
     public static synchronized void create(List<Test> testList) {
         if (sessionList == null) {
             sessionList = new ArrayList<>();

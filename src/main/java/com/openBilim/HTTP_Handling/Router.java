@@ -11,9 +11,12 @@ import java.util.function.Consumer;
 import spark.Spark;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openBilim.LOGGER;
 import com.openBilim.Session_Handling.AvailableTests;
+import com.openBilim.Session_Handling.SessionCreator;
+import com.openBilim.Session_Handling.SessionDTO;
 import com.openBilim.Session_Handling.Test;
-
+import com.openBilim.Session_Handling.TestDTO;
 import com.openBilim.Session_Handling.UnstartedTestDTO;
 import com.openBilim.Tasks.*;
 
@@ -40,6 +43,30 @@ public class Router {
         });
         
 
+    }
+
+
+    public static synchronized void getUnfinishedTests(){
+        unmap("/getUnfinishedTests");
+        post("/getUnfinishedTests", (req, res) -> {
+            if (JWT_Util.validate(req.body()) != null){
+                for(int i = 0; i < SessionCreator.sessionList.size(); ++i)
+                {
+                    if(SessionCreator.sessionList.get(i).isFinished() == false);
+                    {
+                         if(SessionCreator.sessionList.get(i).getUserId().equals(JWT_Util.validateAndGetUserId(req.body())) ){
+                        LOGGER.info(JWT_Util.validateAndGetUserId(req.body()) + " Продолжил прохождение теста на сессии " +SessionCreator.sessionList.get(i).getUserId());
+
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        TestDTO result = new TestDTO(SessionCreator.sessionList.get(i).getTest().getSubject(),SessionCreator.sessionList.get(i).getTest().getName(), SessionCreator.sessionList.get(i).getTest().getTasksNumber(),SessionCreator.sessionList.get(i).get_id());
+                        return objectMapper.writeValueAsString(result);}
+                        }
+                    }
+                    return "No unfinished sessions!";
+                }
+            
+            else {return "Invalid Token";}
+            });
     }
 
     public synchronized void sendNewTask(Task task, String session_id) {
@@ -75,9 +102,16 @@ public class Router {
     public synchronized void sendTestResults(String session_id, List<AnswerData> answers, float score) {
        unmap("/" + session_id + "/getTask");
         get("/" + session_id + "/getTask", (req, res) -> {
-            TestResultDTO dto = new TestResultDTO(score);
+            
+            TestResultDTO dto = new TestResultDTO(score, SessionCreator.getExistingSession(session_id).getTest().getMaxScore());
             ObjectMapper mapper = new ObjectMapper();
             
+            for(int i = 0; i < SessionCreator.sessionList.size(); i++)
+            {
+                if(SessionCreator.sessionList.get(i).get_id().equals(session_id));
+                SessionCreator.sessionList.remove(i);
+           }
+
             return mapper.writeValueAsString(dto);
         });
     }
