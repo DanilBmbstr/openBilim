@@ -1,6 +1,7 @@
 package com.openBilim;
 import static spark.Spark.after;
 import static spark.Spark.before;
+import static spark.Spark.exception;
 import static spark.Spark.options;
 import static spark.Spark.port;
 
@@ -8,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.io.FileInputStream;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
@@ -31,13 +33,14 @@ class Main{
 public static void main(String[] args)
 {
 
- 
-    
-    
+    DB_Utul.connect();
+
+
+
 //___________________________________Запуск сервера
     port(Integer.parseInt(args[0]));
     try{
-   // Spark.init();
+    Spark.init();
 
          options("/*",
         (request, response) -> {
