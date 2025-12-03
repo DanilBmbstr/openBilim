@@ -5,12 +5,14 @@ import static spark.Spark.get;
 import static spark.Spark.options;
 import static spark.Spark.post;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 import spark.Spark;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openBilim.DB_Utul;
 import com.openBilim.LOGGER;
 import com.openBilim.Session_Handling.AvailableTests;
 import com.openBilim.Session_Handling.SessionCreator;
@@ -26,10 +28,16 @@ public class Router {
 
 
 
-    public static synchronized void getAvailableTests(List<Test> testsList){
+    public static synchronized void getAvailableTests(){
+
+        
+
+
+
         unmap("/getAvailableTests");
         AvailableTests result = new AvailableTests();
         post("/getAvailableTests", (spark.Request req, spark.Response res) -> {
+            List<Test> testsList = DB_Utul.getAvailableTests("0");
             ObjectMapper objectMapper = new ObjectMapper();
             if (JWT_Util.validate(req.body()) != null){
                 result.tests = new UnstartedTestDTO[testsList.size()];

@@ -1,7 +1,7 @@
 package com.openBilim.Session_Handling;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.openBilim.DB_Utul;
 import com.openBilim.Users.Authorization.Auth;
 import com.openBilim.Users.Authorization.JWT_Util;
 
@@ -35,14 +35,11 @@ public class SessionCreator {
 
             SessionDTO dto = objectMapper.readValue(req.body(), SessionDTO.class);
             String userId = JWT_Util.validateAndGetUserId(dto.user_token); 
-            for (int i = 0; i < Auth.userList.size(); i++) {
-                if (userId.equals(Auth.userList.get(i).getUserId())) {
-                    break;
-                }
-                if (i == Auth.userList.size()) {
+            
+                if (DB_Utul.getUserById(userId) == null) {
                     return "Error! User does not exist";
                 }
-            }
+            
 
             for(int i = 0; i < sessionList.size(); i++)
             {

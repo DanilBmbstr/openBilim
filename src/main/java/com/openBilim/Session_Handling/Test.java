@@ -37,6 +37,10 @@ public class Test {
         tasks.add(task);
     }
 
+    public void setTasksList(ArrayList<Task> tasks){
+        this.tasks = tasks;
+    }
+
     public String getId()
     {return test_id;}
     public String getName()

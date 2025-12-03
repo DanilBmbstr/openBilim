@@ -24,6 +24,15 @@ public class User {
         this.password_hash = Hash.hashString((Hash.hashString(password, "SHA-256")) + password_salt, "SHA-256");
         this.group = group;
     }
+    public User(String user_id, String fio, String group, String email, String password_hash, String password_salt, String role){
+        this.user_id = user_id;
+        this.fio = fio;
+        this.email =email;
+        this.role = role;
+        this.password_salt= password_salt;
+        this.password_hash = password_hash;
+        this.group = group;
+    }
     // Геттеры
     public String getUserId(){return user_id; }
     public String getFio(){return fio; }
