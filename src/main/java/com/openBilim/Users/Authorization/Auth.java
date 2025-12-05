@@ -23,6 +23,7 @@ public class Auth {
 
 
             User newUser = DB_Utul.getUserByEmail(login.login);
+            if(newUser == null) {return "Error: User not found";}
             if(newUser.getPasswordHash().equals( Hash.hashString(newUser.getPasswordSalt() + login.password, "SHA-256")))
             {
                 return JWT_Util.createTokenWithClaims(newUser.getEmail(),newUser.getRole(),newUser.getFio(),newUser.getGroup(),  newUser.getUserId());

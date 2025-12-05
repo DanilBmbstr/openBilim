@@ -10,7 +10,7 @@ public class LOGGER {
     static Logger Log;
     static
     {
-        try(FileInputStream ins = new FileInputStream("src/main/java/com/openBilim/LoggerConfig")){ 
+        try(FileInputStream ins = new FileInputStream( "LoggerConfig")){ 
             LogManager.getLogManager().readConfiguration(ins);
             Log = Logger.getLogger("Main");
         }catch (Exception ignore){

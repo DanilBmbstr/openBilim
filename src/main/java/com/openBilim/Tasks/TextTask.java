@@ -15,13 +15,14 @@ public class TextTask extends Task {
 
     public String answer;
 
-    public TextTask(String taskText, String rightAnswer, double points) {
-        super(taskText,points);
+    public TextTask(String id, String taskText, String rightAnswer, double points) {
+        super(id, taskText,points);
         this.rightAnswer = rightAnswer;
     }
 
     public boolean validate() {
-        return answer.equals(rightAnswer);
+
+        return answer.toLowerCase().replaceAll(" ", "").equals(rightAnswer.toLowerCase().replaceAll(" ", ""));
     };
 
     @Override

@@ -11,6 +11,7 @@ import com.openBilim.HTTP_Handling.Router;
 
 public abstract class Task {
 
+    private final String taskId;
     protected Router router; 
     protected final AnswerData answerData;
     //Само задание
@@ -26,6 +27,10 @@ public abstract class Task {
 
     public abstract List<String> getOptions();
 
+    public String getId()
+    {return taskId;}
+    
+
     public double getPoints(){
         return points;
     }
@@ -33,7 +38,8 @@ public abstract class Task {
     public Router getRouter(){return router;}
     public void updateRouter(){router = new Router();}
     
-    public Task(String taskText, double points){
+    public Task(String id, String taskText, double points){
+        this.taskId = id;
         this.taskText = taskText;
         router = new Router();
         answerData = new AnswerData();

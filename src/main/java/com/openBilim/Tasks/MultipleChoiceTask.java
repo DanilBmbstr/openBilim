@@ -17,14 +17,14 @@ public class MultipleChoiceTask extends Task {
     // изменил selectedOptions на String, не очень хорошая практика, но так будет
     // гораздо проще. Временное решение
 
-    public MultipleChoiceTask(String taskText, List<String> options, Set<Integer> correctIndices, double points) {
-        super(taskText, points);
+    public MultipleChoiceTask(String id, String taskText, List<String> options, Set<Integer> correctIndices, double points) {
+        super(id, taskText, points);
         this.options = options;
         this.correctIndices = correctIndices;
     }
 
-    public MultipleChoiceTask(String taskText, java.sql.Array options, java.sql.Array correctIndices, double points) {
-        super(taskText, points);
+    public MultipleChoiceTask(String id, String taskText, java.sql.Array options, java.sql.Array correctIndices, double points) {
+        super(id, taskText, points);
 
         String[] optionsString = options.toString().substring(1, options.toString().length() - 1).split(", ");
 

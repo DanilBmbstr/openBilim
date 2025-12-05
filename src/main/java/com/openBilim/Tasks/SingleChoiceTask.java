@@ -14,15 +14,15 @@ public class SingleChoiceTask extends Task {
     private final int correctIndex; // индекс правильного варианта (0-based)
     public String selectedOption; // что прислал пользователь (строка из options)
 
-    public SingleChoiceTask(String taskText, List<String> options, int correctIndex, double points) {
-        super(taskText, points);
+    public SingleChoiceTask(String id, String taskText, List<String> options, int correctIndex, double points) {
+        super(id, taskText, points);
         this.options = options;
         this.correctIndex = correctIndex;
     }
 
-    public SingleChoiceTask(String taskText, java.sql.Array options, int correctIndex, double points) {
+    public SingleChoiceTask(String id, String taskText, java.sql.Array options, int correctIndex, double points) {
 
-        super(taskText, points);
+        super(id, taskText, points);
         String optionsString = options.toString();
 
         List<String> options_tmp = null;

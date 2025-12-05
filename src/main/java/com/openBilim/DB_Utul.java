@@ -46,6 +46,98 @@ public class DB_Utul {
         return str.replace("'", "''");
     }
 
+
+    public static int getLastSession(){
+         String sql = "select * from get_last_session()";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet results = statement.executeQuery(sql);
+
+            if (!results.next())
+                return -1;
+            return results.getInt("id");
+        } catch (SQLException e) {
+            LOGGER.warning("Error closing resources: " + e.getMessage());
+            return -1;
+        } finally {
+            // Step 5: Close resources
+            try {
+                if (statement != null)
+                    statement.close();
+
+            } catch (SQLException e) {
+                LOGGER.warning("Error closing resources: " + e.getMessage());
+            }
+        }
+    }
+//IN p_session_id integer, IN p_task_id integer, IN p_user_answer text, IN p_is_correct boolean, IN p_points_earned double precision)
+    public static void register_answer(int session_id,int task_id, String user_answer, Boolean isCorrect, float earned_points) {
+
+        String sql = String.format("call register_answer( %d, %d, '%s', '%s', %f)", session_id, task_id, ecranize(user_answer), isCorrect? "true" : "false", earned_points);
+
+        try {
+            statement = connection.createStatement();
+            statement.execute(sql);
+
+        } catch (SQLException e) {
+            LOGGER.warning("Error closing resources: " + e.getMessage());
+        } finally {
+            // Step 5: Close resources
+            try {
+                if (statement != null)
+                    statement.close();
+
+            } catch (SQLException e) {
+                LOGGER.warning("Error closing resources: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void finish_session(int id, float score) {
+
+        String sql = String.format("call finish_session( %d, %f)", id, score);
+
+        try {
+            statement = connection.createStatement();
+            statement.execute(sql);
+
+        } catch (SQLException e) {
+            LOGGER.warning("Error closing resources: " + e.getMessage());
+        } finally {
+            // Step 5: Close resources
+            try {
+                if (statement != null)
+                    statement.close();
+
+            } catch (SQLException e) {
+                LOGGER.warning("Error closing resources: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void register_session(int id, int test_id, int user_id, float total_points) {
+
+        String sql = String.format("call register_session( %d, %d, %d, %f)", id, test_id, user_id, total_points);
+
+        try {
+            statement = connection.createStatement();
+            statement.execute(sql);
+
+        } catch (SQLException e) {
+            LOGGER.warning("Error closing resources: " + e.getMessage());
+        } finally {
+            // Step 5: Close resources
+            try {
+                if (statement != null)
+                    statement.close();
+
+            } catch (SQLException e) {
+                LOGGER.warning("Error closing resources: " + e.getMessage());
+            }
+        }
+    }
+
     public static Test getTestById(String id) {
 
         String sql = "select * from get_test_by_id(" + DB_Utul.ecranize(id) + ")";
@@ -80,30 +172,29 @@ public class DB_Utul {
     public static ArrayList<Task> getTestTasks(String test_id) {
         String sql = "select * from get_test_tasks(" + DB_Utul.ecranize(test_id) + ")";
         try {
-            
+
             statement = connection.createStatement();
             ResultSet results = statement.executeQuery(sql);
 
             ArrayList<Task> tasksList = new ArrayList<>();
 
             while (results.next()) {
-                
+                String taskId = String.valueOf(results.getInt("id"));
                 if (results.getString("type").equals("SINGLE")) {
-                    
-                    tasksList.add(new SingleChoiceTask(results.getString("question"),
+
+                    tasksList.add(new SingleChoiceTask(taskId, results.getString("question"),
                             results.getArray("options"), Integer.parseInt(results.getString("correct_text")),
                             results.getDouble("points")));
-                            
-                            
+
                 } else if (results.getString("type").equals("MULTIPLE")) {
 
-                    tasksList.add(new MultipleChoiceTask(results.getString("question"),
+                    tasksList.add(new MultipleChoiceTask(taskId, results.getString("question"),
                             results.getArray("options"), results.getArray("correct_indicies"),
                             results.getDouble("points")));
                 } else if (results.getString("type").equals("TEXT")) {
-                    tasksList.add(new TextTask(results.getString("question"),
+                    tasksList.add(new TextTask(taskId, results.getString("question"),
                             results.getString("correct_text"), results.getDouble("points")));
-                                        
+
                 }
             }
 
@@ -134,12 +225,11 @@ public class DB_Utul {
 
             while (results.next()) {
 
-
                 testsList.add(new Test(results.getString("test_id"), results.getString("test_subject"),
                         results.getString("test_name")));
 
                 testsList.getLast().setTasksList(getTestTasks(testsList.getLast().getId()));
-                
+
             }
 
             return testsList;

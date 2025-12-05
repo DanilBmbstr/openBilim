@@ -51,21 +51,18 @@ public class SessionCreator {
 
             for (int i = 0; i < testList.size(); i++) {
                 if (testList.get(i).getId().equals(dto.test_id)) {
-                    String token;
-                    if (sessionList.size() == 0) {
-                        token = "0";
-                    } else {
-                        token = String.valueOf(Integer.parseInt(sessionList.getLast().get_id()) + 1);
-                    }
-                    sessionList.add(new UserSession(token, testList.get(i), JWT_Util.validateAndGetUserId(dto.user_token) ));
+                    String sessionId;
+                    sessionId = String.valueOf(DB_Utul.getLastSession() + 1);
+                    String dto_userId =  JWT_Util.validateAndGetUserId(dto.user_token);
+                    sessionList.add(new UserSession(sessionId, testList.get(i),  dto_userId));
                     sessionList.getLast().run();
                     ;
 
                     TestDTO testDTO = new TestDTO(testList.get(i).getSubject(), testList.get(i).getName(),
-                            testList.get(i).getTasksNumber(), token);
+                            testList.get(i).getTasksNumber(), sessionId);
 
 
-
+                    DB_Utul.register_session(Integer.parseInt(sessionId), Integer.parseInt(testList.get(i).getId()), Integer.parseInt(dto_userId), (float)testList.get(i).getMaxScore());
 
                             
                     return objectMapper.writeValueAsString(testDTO);

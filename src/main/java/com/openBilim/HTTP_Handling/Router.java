@@ -117,6 +117,9 @@ public class Router {
             for(int i = 0; i < SessionCreator.sessionList.size(); i++)
             {
                 if(SessionCreator.sessionList.get(i).get_id().equals(session_id));
+
+                DB_Utul.finish_session(Integer.parseInt(SessionCreator.sessionList.get(i).get_id()), score);
+
                 SessionCreator.sessionList.remove(i);
            }
 
@@ -146,6 +149,7 @@ public class Router {
             if (JWT_Util.validateAndGetUserId(answer.getUserToken()).equals(user_id)) {
                 eval = task.validate();
                 resultCallback.accept(new AnswerData(JWT_Util.validateAndGetUserId(answer.getUserToken()), answer.answer, eval));
+                DB_Utul.register_answer(Integer.parseInt(session_id), Integer.parseInt(task.getId()), answer.getAnswer(), eval, (float)task.getPoints());
                 return (String.valueOf(eval));
             } else {
                 resultCallback.accept(new AnswerData(null, "Wrong user", false));
@@ -168,6 +172,7 @@ public class Router {
             if (JWT_Util.validateAndGetUserId(answer.getUserToken()).equals(user_id)) {
                 eval = task.validate();
                 resultCallback.accept(new AnswerData(JWT_Util.validateAndGetUserId(answer.getUserToken()), answer.answer, eval));
+                DB_Utul.register_answer(Integer.parseInt(session_id), Integer.parseInt(task.getId()), answer.getAnswer(), eval, (float)task.getPoints());
                 return (String.valueOf(eval));
             } else {
                 resultCallback.accept(null);
@@ -195,6 +200,7 @@ public class Router {
 
                 eval = task.validate();
                 resultCallback.accept(new AnswerData(JWT_Util.validateAndGetUserId(answer.getUserToken()), answer.answer, eval));
+                DB_Utul.register_answer(Integer.parseInt(session_id), Integer.parseInt(task.getId()), answer.getAnswer(), eval, (float)task.getPoints());
                 return (String.valueOf(eval));
             } else {
                 resultCallback.accept(null);

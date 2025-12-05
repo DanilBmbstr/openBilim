@@ -34,3 +34,13 @@ jar {
         attributes 'Main-Class': 'com.openBilim.Main'
     }
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.openBilim.Main'
+    }
+    archiveBaseName = "${project.name}-all"
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
