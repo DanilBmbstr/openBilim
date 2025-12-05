@@ -32,14 +32,27 @@ class Main{
 
 public static void main(String[] args)
 {
-    DB_Utul.db_adress= "jdbc:postgresql://localhost:5432/openBilim";
+
+
+
+    //reading config
+    Configuration config = ConfigReader.readConfig();
+    DB_Utul.db_user = config.db_username;
+    DB_Utul.db_adress= config.db_adress;
+
+    DB_Utul.db_password = config.db_password;
+
     DB_Utul.connect();
 
 
 
 //___________________________________Запуск сервера
-    port(Integer.parseInt(args[0]));
-    //Spark.ipAdress("0.0.0.0");
+    port(Integer.parseInt(config.server_port));
+    //port(Integer.parseInt(args[0]));
+    if (config.ipAddress!=null) {
+    Spark.ipAddress(config.ipAddress);    
+    }
+    
     try{
 
     Spark.init();

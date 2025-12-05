@@ -18,6 +18,9 @@ import com.openBilim.Users.User;
 public class DB_Utul {
     public static String db_adress;
 
+    public static String db_user;
+    public static String db_password;
+
     private static Connection connection = null;
     private static Statement statement = null;
 
@@ -30,8 +33,8 @@ public class DB_Utul {
 
             // Step 3: Establish the connection
             String url = db_adress;
-            String user = "postgres";
-            String password = "123456";
+            String user = db_user;
+            String password = db_password;
             connection = DriverManager.getConnection(url, user, password);
             LOGGER.info("Connected to PostgreSQL database!");
 
