@@ -1,0 +1,4 @@
+Dec 23, 2025 1:38:00 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 23, 2025 1:38:00 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080

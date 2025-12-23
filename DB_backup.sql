@@ -1,0 +1,807 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.10 (Ubuntu 16.10-0ubuntu0.24.04.1)
+-- Dumped by pg_dump version 16.9 (Ubuntu 16.9-0ubuntu0.24.04.1)
+
+-- Started on 2025-12-05 13:50:45 +05
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 2 (class 3079 OID 16518)
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- TOC entry 3545 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+--
+-- TOC entry 282 (class 1255 OID 16558)
+-- Name: add_multiple_choice_task(integer, text, text[], integer[], double precision); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.add_multiple_choice_task(IN p_test_id integer, IN p_question text, IN p_options text[], IN p_correct_indices integer[], IN p_points double precision DEFAULT 1.0)
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    max_index INT;
+BEGIN
+    -- Проверяем, что все индексы в пределах массива
+    max_index := array_length(p_options, 1) - 1;
+    
+    IF EXISTS (
+        SELECT 1 
+        FROM unnest(p_correct_indices) AS idx 
+        WHERE idx < 0 OR idx > max_index
+    ) THEN
+        RAISE EXCEPTION 'Некорректные индексы правильных ответов. Допустимые значения: 0-%', max_index;
+    END IF;
+    
+    -- Проверяем, что есть хотя бы один правильный ответ
+    IF array_length(p_correct_indices, 1) IS NULL OR array_length(p_correct_indices, 1) = 0 THEN
+        RAISE EXCEPTION 'Должен быть указан хотя бы один правильный ответ';
+    END IF;
+    
+    INSERT INTO tasks (test_id, type, question, options, correct_text, correct_indices, points, task_order)
+    VALUES (
+        p_test_id, 
+        'MULTIPLE', 
+        p_question, 
+        to_jsonb(p_options), -- используем p_options
+        NULL, 
+        p_correct_indices, -- используем p_correct_indices
+        p_points,
+        COALESCE((SELECT MAX(task_order)+1 FROM tasks WHERE test_id = p_test_id), 0)
+    );
+END;
+$$;
+
+
+ALTER PROCEDURE public.add_multiple_choice_task(IN p_test_id integer, IN p_question text, IN p_options text[], IN p_correct_indices integer[], IN p_points double precision) OWNER TO postgres;
+
+--
+-- TOC entry 279 (class 1255 OID 16557)
+-- Name: add_single_choice_task(integer, text, text[], integer, double precision); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.add_single_choice_task(IN p_test_id integer, IN p_question text, IN p_options text[], IN p_correct_index integer, IN p_points double precision DEFAULT 1.0)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    -- Проверяем, что правильный индекс в пределах массива
+    IF p_correct_index < 0 OR p_correct_index >= array_length(p_options, 1) THEN
+        RAISE EXCEPTION 'Некорректный индекс правильного ответа: %. Допустимые значения: 0-%', 
+                        p_correct_index, array_length(p_options, 1) - 1;
+    END IF;
+    
+    INSERT INTO tasks (test_id, type, question, options, correct_text, correct_indices, points, task_order)
+    VALUES (
+        p_test_id, 
+        'SINGLE', 
+        p_question, 
+        to_jsonb(p_options), -- используем p_options (параметр процедуры)
+        p_correct_index::text, 
+        NULL, -- используем p_correct_index
+        p_points,
+        COALESCE((SELECT MAX(task_order)+1 FROM tasks WHERE test_id = p_test_id), 0)
+    );
+END;
+$$;
+
+
+ALTER PROCEDURE public.add_single_choice_task(IN p_test_id integer, IN p_question text, IN p_options text[], IN p_correct_index integer, IN p_points double precision) OWNER TO postgres;
+
+--
+-- TOC entry 283 (class 1255 OID 16559)
+-- Name: add_text_task(integer, text, text, double precision); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.add_text_task(IN p_test_id integer, IN p_question text, IN p_correct_text text, IN p_points double precision DEFAULT 1.0)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO tasks (test_id, type, question, options, correct_text, correct_indices, points, task_order)
+    VALUES (
+        p_test_id, 
+        'TEXT', 
+        p_question, 
+        NULL, 
+        p_correct_text, 
+        NULL, 
+        p_points,
+        COALESCE((SELECT MAX(task_order)+1 FROM tasks WHERE test_id = p_test_id), 0)
+    );
+END;
+$$;
+
+
+ALTER PROCEDURE public.add_text_task(IN p_test_id integer, IN p_question text, IN p_correct_text text, IN p_points double precision) OWNER TO postgres;
+
+--
+-- TOC entry 262 (class 1255 OID 16556)
+-- Name: create_test(character varying, character varying); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.create_test(IN p_name character varying, IN p_subject character varying, OUT p_test_id integer)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO tests (name, subject)
+    VALUES (p_name, p_subject)
+    RETURNING id INTO p_test_id;
+END;
+$$;
+
+
+ALTER PROCEDURE public.create_test(IN p_name character varying, IN p_subject character varying, OUT p_test_id integer) OWNER TO postgres;
+
+--
+-- TOC entry 286 (class 1255 OID 16589)
+-- Name: finish_session(integer, double precision); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.finish_session(IN p_session_id integer, IN p_score double precision)
+    LANGUAGE plpgsql
+    AS $$ 
+BEGIN
+    UPDATE sessions        -- убрал TABLE (в UPDATE не нужно)
+    SET score = p_score, 
+        finished_at = NOW()
+    WHERE session_id = p_session_id;  -- добавил WHERE условие!
+END;
+$$;
+
+
+ALTER PROCEDURE public.finish_session(IN p_session_id integer, IN p_score double precision) OWNER TO postgres;
+
+--
+-- TOC entry 280 (class 1255 OID 16562)
+-- Name: get_available_tests(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.get_available_tests(p_user_id integer) RETURNS TABLE(test_id integer, test_name character varying, test_subject character varying, total_tasks bigint, total_points double precision)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        t.id as test_id,
+        t.name as test_name,
+        t.subject as test_subject,
+        COUNT(tk.id) as total_tasks,
+        COALESCE(SUM(tk.points), 0) as total_points
+    FROM tests t
+    LEFT JOIN tasks tk ON t.id = tk.test_id
+    GROUP BY t.id, t.name, t.subject
+    ORDER BY t.id;
+END;
+$$;
+
+
+ALTER FUNCTION public.get_available_tests(p_user_id integer) OWNER TO postgres;
+
+--
+-- TOC entry 270 (class 1255 OID 16594)
+-- Name: get_last_session(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.get_last_session() RETURNS TABLE(id integer)
+    LANGUAGE plpgsql
+    AS $$
+ BEGIN
+     RETURN QUERY
+     SELECT MAX(SESSION_ID) FROM sessions;
+ END;
+ $$;
+
+
+ALTER FUNCTION public.get_last_session() OWNER TO postgres;
+
+--
+-- TOC entry 278 (class 1255 OID 16561)
+-- Name: get_test_by_id(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.get_test_by_id(p_test_id integer) RETURNS TABLE(id integer, name character varying, subject character varying)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        t.id,
+        t.name,
+        t.subject
+    FROM tests t
+    WHERE t.id = p_test_id;
+END;
+$$;
+
+
+ALTER FUNCTION public.get_test_by_id(p_test_id integer) OWNER TO postgres;
+
+--
+-- TOC entry 284 (class 1255 OID 16571)
+-- Name: get_test_tasks(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.get_test_tasks(p_test_id integer) RETURNS TABLE(id integer, test_id integer, type character varying, question text, options jsonb, correct_text text, correct_indicies integer[], points double precision, task_order integer)
+    LANGUAGE plpgsql
+    AS $$
+ BEGIN
+     RETURN QUERY
+     SELECT 
+         u.id,
+         u.test_id,
+         u.type,
+         u.question,
+         u.options,
+         u.correct_text,
+         u.correct_indices,
+         u.points,
+		 u.task_order
+     FROM tasks u
+     WHERE u.test_id = p_test_id;
+ END;
+ $$;
+
+
+ALTER FUNCTION public.get_test_tasks(p_test_id integer) OWNER TO postgres;
+
+--
+-- TOC entry 263 (class 1255 OID 16560)
+-- Name: get_user_by_email(character varying); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.get_user_by_email(p_email character varying) RETURNS TABLE(user_id integer, fio character varying, email character varying, role character varying, group_name character varying, password_salt character varying, password_hash character varying, created_at timestamp without time zone)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        u.user_id,
+        u.fio,
+        u.email,
+        u.role,
+        u.group_name,
+        u.password_salt,
+        u.password_hash,
+        u.created_at
+    FROM users u
+    WHERE u.email = p_email;
+END;
+$$;
+
+
+ALTER FUNCTION public.get_user_by_email(p_email character varying) OWNER TO postgres;
+
+--
+-- TOC entry 281 (class 1255 OID 16566)
+-- Name: get_user_by_id(integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.get_user_by_id(p_id integer) RETURNS TABLE(user_id integer, fio character varying, email character varying, role character varying, group_name character varying, password_salt character varying, password_hash character varying, created_at timestamp without time zone)
+    LANGUAGE plpgsql
+    AS $$
+ BEGIN
+     RETURN QUERY
+     SELECT 
+         u.user_id,
+         u.fio,
+         u.email,
+         u.role,
+         u.group_name,
+         u.password_salt,
+         u.password_hash,
+         u.created_at
+     FROM users u
+     WHERE u.user_id = p_id;
+ END;
+ $$;
+
+
+ALTER FUNCTION public.get_user_by_id(p_id integer) OWNER TO postgres;
+
+--
+-- TOC entry 264 (class 1255 OID 16586)
+-- Name: register_answer(integer, integer, text, boolean, double precision); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.register_answer(IN p_session_id integer, IN p_task_id integer, IN p_user_answer text, IN p_is_correct boolean, IN p_points_earned double precision)
+    LANGUAGE plpgsql
+    AS $$   BEGIN       
+   INSERT INTO answers 
+(session_id, task_id, user_answer, is_correct, points_earned, answered_at) 
+    VALUES (p_session_id, p_task_id, p_user_answer, p_is_correct, p_points_earned, NOW());  END;  $$;
+
+
+ALTER PROCEDURE public.register_answer(IN p_session_id integer, IN p_task_id integer, IN p_user_answer text, IN p_is_correct boolean, IN p_points_earned double precision) OWNER TO postgres;
+
+--
+-- TOC entry 265 (class 1255 OID 16587)
+-- Name: register_session(integer, integer, double precision); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.register_session(IN p_test_id integer, IN p_user_id integer, IN p_total_points double precision)
+    LANGUAGE plpgsql
+    AS $$   BEGIN       
+   INSERT INTO sessions 
+(test_id, user_id, total_points, started_at) 
+    VALUES (p_test_id, p_user_id, p_total_points, NOW());  END;  $$;
+
+
+ALTER PROCEDURE public.register_session(IN p_test_id integer, IN p_user_id integer, IN p_total_points double precision) OWNER TO postgres;
+
+--
+-- TOC entry 285 (class 1255 OID 16588)
+-- Name: register_session(integer, integer, integer, double precision); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.register_session(IN p_session_id integer, IN p_test_id integer, IN p_user_id integer, IN p_total_points double precision)
+    LANGUAGE plpgsql
+    AS $$   BEGIN       
+   INSERT INTO sessions 
+(session_id, test_id, user_id, total_points, started_at) 
+    VALUES (p_session_id, p_test_id, p_user_id, p_total_points, NOW());  END;  $$;
+
+
+ALTER PROCEDURE public.register_session(IN p_session_id integer, IN p_test_id integer, IN p_user_id integer, IN p_total_points double precision) OWNER TO postgres;
+
+--
+-- TOC entry 261 (class 1255 OID 16555)
+-- Name: register_user(character varying, character varying, character varying, character varying, character varying); Type: PROCEDURE; Schema: public; Owner: postgres
+--
+
+CREATE PROCEDURE public.register_user(IN p_fio character varying, IN p_email character varying, IN p_password character varying, IN p_role character varying DEFAULT 'STUDENT'::character varying, IN p_group_name character varying DEFAULT NULL::character varying)
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_salt VARCHAR(64);
+    v_hash VARCHAR(64);
+BEGIN
+    v_salt := substr(md5(random()::text), 1, 25);
+    v_hash := encode(digest(v_salt || p_password, 'sha256'), 'hex');
+    
+    INSERT INTO users (fio, email, role, group_name, password_salt, password_hash)
+    VALUES (p_fio, p_email, p_role, p_group_name, v_salt, v_hash);
+END;
+$$;
+
+
+ALTER PROCEDURE public.register_user(IN p_fio character varying, IN p_email character varying, IN p_password character varying, IN p_role character varying, IN p_group_name character varying) OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 224 (class 1259 OID 16479)
+-- Name: answers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.answers (
+    id integer NOT NULL,
+    task_id integer,
+    user_answer text NOT NULL,
+    is_correct boolean,
+    points_earned double precision DEFAULT 0,
+    answered_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    session_id integer
+);
+
+
+ALTER TABLE public.answers OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16478)
+-- Name: answers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.answers ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.answers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 222 (class 1259 OID 16469)
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sessions (
+    test_id integer,
+    user_id integer,
+    started_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    finished_at timestamp without time zone,
+    score double precision DEFAULT 0,
+    total_points double precision DEFAULT 0,
+    session_id integer NOT NULL
+);
+
+
+ALTER TABLE public.sessions OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16459)
+-- Name: tasks; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tasks (
+    id integer NOT NULL,
+    test_id integer NOT NULL,
+    type character varying(20) NOT NULL,
+    question text NOT NULL,
+    options jsonb,
+    correct_text text,
+    correct_indices integer[],
+    points double precision DEFAULT 1.0,
+    task_order integer DEFAULT 0 NOT NULL,
+    CONSTRAINT tasks_type_check CHECK (((type)::text = ANY ((ARRAY['TEXT'::character varying, 'SINGLE'::character varying, 'MULTIPLE'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.tasks OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16458)
+-- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.tasks ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.tasks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 217 (class 1259 OID 16442)
+-- Name: tests; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tests (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL,
+    subject character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.tests OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 16441)
+-- Name: tests_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tests_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.tests_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3546 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: tests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tests_id_seq OWNED BY public.tests.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 16449)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    user_id integer NOT NULL,
+    fio character varying(150) NOT NULL,
+    email character varying(100) NOT NULL,
+    role character varying(20) DEFAULT 'STUDENT'::character varying NOT NULL,
+    group_name character varying(50),
+    password_salt character varying(64) NOT NULL,
+    password_hash character varying(64) NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16448)
+-- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.users ALTER COLUMN user_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.users_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 3356 (class 2604 OID 16445)
+-- Name: tests id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tests ALTER COLUMN id SET DEFAULT nextval('public.tests_id_seq'::regclass);
+
+
+--
+-- TOC entry 3539 (class 0 OID 16479)
+-- Dependencies: 224
+-- Data for Name: answers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.answers (id, task_id, user_answer, is_correct, points_earned, answered_at, session_id) FROM stdin;
+10	8	3	f	2	2025-12-05 10:15:29.916232	1
+11	9	0,3,4	t	3	2025-12-05 10:16:14.779399	1
+12	10	Париж	t	1.5	2025-12-05 10:16:30.112455	1
+13	11	1	f	0.01	2025-12-05 10:16:54.279834	1
+\.
+
+
+--
+-- TOC entry 3537 (class 0 OID 16469)
+-- Dependencies: 222
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sessions (test_id, user_id, started_at, finished_at, score, total_points, session_id) FROM stdin;
+1	1	2025-12-05 10:15:25.038387	2025-12-05 10:16:54.294157	4.5	6.51	1
+\.
+
+
+--
+-- TOC entry 3536 (class 0 OID 16459)
+-- Dependencies: 221
+-- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tasks (id, test_id, type, question, options, correct_text, correct_indices, points, task_order) FROM stdin;
+9	1	MULTIPLE	Какие из перечисленных языков программирования являются статически типизированными?	["Java", "Python", "JavaScript", "C++", "TypeScript"]	\N	{0,3,4}	3	4
+10	1	TEXT	Как называется столица Франции?	\N	Париж	\N	1.5	5
+8	1	SINGLE	Какая планета Солнечной системы является самой большой?	["Марс", "Юпитер", "Венера", "Земля"]	1	{1}	2	3
+11	1	SINGLE	Вопрос сингл таск	["Вариант 1", "Вариант 2", "Вариант 3", "Вариант 4"]	0	\N	0.01	6
+13	2	TEXT	Какая часть речи обозначает действие предмета?	\N	Глагол	\N	2	0
+14	2	SINGLE	Какая часть речи обозначает признак предмета?	["Глагол", "Существительное", "Прилагательное", "Наречие"]	2	\N	2	1
+15	2	MULTIPLE	Выберите все самостоятельные части речи:	["Существительное", "Прилагательное", "Глагол", "Предлог", "Союз", "Наречие"]	\N	{0,1,2,5}	3	2
+16	2	TEXT	Как называется часть речи, которая обозначает количество или порядок предметов при счете?	\N	Числительное	\N	2	3
+17	2	SINGLE	Какая часть речи служит для связи слов в предложении?	["Местоимение", "Предлог", "Частица", "Междометие"]	1	\N	2	4
+18	2	MULTIPLE	Выберите все служебные части речи:	["Предлог", "Существительное", "Союз", "Частица", "Прилагательное", "Междометие"]	\N	{0,2,3}	3	5
+19	2	TEXT	Какая часть речи выражает чувства, но не называет их?	\N	Междометие	\N	2	6
+\.
+
+
+--
+-- TOC entry 3532 (class 0 OID 16442)
+-- Dependencies: 217
+-- Data for Name: tests; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tests (id, name, subject) FROM stdin;
+1	sample_test	subj
+2	Части речи	Русский язык
+\.
+
+
+--
+-- TOC entry 3534 (class 0 OID 16449)
+-- Dependencies: 219
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (user_id, fio, email, role, group_name, password_salt, password_hash, created_at) FROM stdin;
+1	Сергей Вячеславович Дворянцев	1@mail.ru	STUDENT	БПО09-29-02	c39aa0102edaf36c06cff229b	e60836004ac12adb8ec23c6091d70e194b8351ac9b1e993bf77ce660577b83a7	2025-12-02 15:53:38.074001
+2	Пользователь	4@mail.ru	STUDENT	MPO11	672ae4ba7938ca5a309fd4b25	7e0b5723659d90de4b2c298a332d6fc0c35974f65935276979b3f978f6d2c363	2025-12-02 16:58:56.296986
+4	Пользователь	4@m.ru	STUDENT	MPO11	cc758313117432a4c5f614e0e	d63663940ad13f9834fb5fe9067144b8cbde38dd28c5f938bb01674994647606	2025-12-02 17:00:36.665307
+\.
+
+
+--
+-- TOC entry 3547 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.answers_id_seq', 13, true);
+
+
+--
+-- TOC entry 3548 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tasks_id_seq', 19, true);
+
+
+--
+-- TOC entry 3549 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: tests_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tests_id_seq', 2, true);
+
+
+--
+-- TOC entry 3550 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_user_id_seq', 4, true);
+
+
+--
+-- TOC entry 3381 (class 2606 OID 16487)
+-- Name: answers answers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.answers
+    ADD CONSTRAINT answers_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3379 (class 2606 OID 16574)
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (session_id);
+
+
+--
+-- TOC entry 3375 (class 2606 OID 16468)
+-- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3368 (class 2606 OID 16447)
+-- Name: tests tests_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tests
+    ADD CONSTRAINT tests_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3370 (class 2606 OID 16457)
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3372 (class 2606 OID 16455)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 3382 (class 1259 OID 16517)
+-- Name: idx_answers_task_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_answers_task_id ON public.answers USING btree (task_id);
+
+
+--
+-- TOC entry 3376 (class 1259 OID 16514)
+-- Name: idx_sessions_test_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_sessions_test_id ON public.sessions USING btree (test_id);
+
+
+--
+-- TOC entry 3377 (class 1259 OID 16515)
+-- Name: idx_sessions_user_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_sessions_user_id ON public.sessions USING btree (user_id);
+
+
+--
+-- TOC entry 3373 (class 1259 OID 16513)
+-- Name: idx_tasks_test_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_tasks_test_id ON public.tasks USING btree (test_id);
+
+
+--
+-- TOC entry 3386 (class 2606 OID 16508)
+-- Name: answers answers_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.answers
+    ADD CONSTRAINT answers_task_id_fkey FOREIGN KEY (task_id) REFERENCES public.tasks(id);
+
+
+--
+-- TOC entry 3387 (class 2606 OID 16581)
+-- Name: answers fk_answers_sessions; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.answers
+    ADD CONSTRAINT fk_answers_sessions FOREIGN KEY (session_id) REFERENCES public.sessions(session_id);
+
+
+--
+-- TOC entry 3384 (class 2606 OID 16493)
+-- Name: sessions sessions_test_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_test_id_fkey FOREIGN KEY (test_id) REFERENCES public.tests(id);
+
+
+--
+-- TOC entry 3385 (class 2606 OID 16498)
+-- Name: sessions sessions_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(user_id);
+
+
+--
+-- TOC entry 3383 (class 2606 OID 16488)
+-- Name: tasks tasks_test_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_test_id_fkey FOREIGN KEY (test_id) REFERENCES public.tests(id) ON DELETE CASCADE;
+
+
+-- Completed on 2025-12-05 13:50:45 +05
+
+--
+-- PostgreSQL database dump complete
+--
+

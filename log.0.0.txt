@@ -1,0 +1,1309 @@
+Dec 16, 2025 2:43:19 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 16, 2025 2:43:19 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080
+Dec 16, 2025 2:43:36 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 2:43:36 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:43:36 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:43:36 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:43:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:43:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:43:40 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 4
+Dec 16, 2025 2:43:40 PM com.openBilim.LOGGER warning
+WARNING: Error closing resources: ERROR: Пользователь ID 1 уже прошел тест ID 1 1 раз(а). Максимальное количество попыток: 1
+  Where: PL/pgSQL function prevent_duplicate_test_session() line 43 at RAISE
+SQL statement "INSERT INTO sessions 
+(session_id, test_id, user_id, total_points, started_at) 
+    VALUES (p_session_id, p_test_id, p_user_id, p_total_points, NOW())"
+PL/pgSQL function register_session(integer,integer,integer,double precision) line 2 at SQL statement
+Dec 16, 2025 2:43:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:43:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:43:45 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 2:43:45 PM com.openBilim.LOGGER warning
+WARNING: Error closing resources: ERROR: insert or update on table "answers" violates foreign key constraint "fk_answers_sessions"
+  Detail: Key (session_id)=(4) is not present in table "sessions".
+  Where: SQL statement "INSERT INTO answers 
+(session_id, task_id, user_answer, is_correct, points_earned, answered_at) 
+    VALUES (p_session_id, p_task_id, p_user_answer, p_is_correct, p_points_earned, NOW())"
+PL/pgSQL function register_answer(integer,integer,text,boolean,double precision) line 2 at SQL statement
+Dec 16, 2025 2:54:41 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 16, 2025 2:54:41 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080
+Dec 16, 2025 2:54:56 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 2:54:57 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:54:57 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:54:57 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:02 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 2
+Dec 16, 2025 2:55:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:30 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 2:55:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:41 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 2:55:44 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:44 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:44 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 2:55:46 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:46 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 2:55:46 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 2:55:46 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 3:05:21 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 16, 2025 3:05:21 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080
+Dec 16, 2025 3:05:28 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:05:28 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:05:28 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:05:28 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:05:48 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:05:48 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:05:48 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 3
+Dec 16, 2025 3:14:05 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:14:05 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:05 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:05 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:05 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:05 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:14:05 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:18 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:14:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:14:18 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:14:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:15:18 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:15:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:15:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:15:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:15:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:15:18 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:15:18 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:17:32 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:17:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:17:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:17:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:17:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:17:32 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:17:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:18:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:18:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:18:38 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 3:20:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:20:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:20:04 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 3:21:30 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:21:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:21:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:21:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:21:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:21:30 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:21:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:23:41 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:23:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:23:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:23:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:23:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:23:41 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:23:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:26:17 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:26:17 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:06 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:31:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:06 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:31:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:25 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:31:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:25 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:31:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:47 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:31:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:31:47 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:31:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:34:58 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:34:58 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:34:58 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:34:58 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:34:58 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:34:58 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:34:58 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:06 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:35:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:06 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:35:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:37 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:35:37 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:37 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:37 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:37 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:35:37 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:35:37 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:36:45 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:36:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:36:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:36:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:36:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:36:45 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:36:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:37:59 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:37:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:37:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:37:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:37:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:37:59 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:37:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:12 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:38:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:12 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:38:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:38:40 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 3:47:17 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 3:47:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:17 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 3:47:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:25 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 3:47:28 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:28 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:28 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 3:47:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:30 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 3:47:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:47:34 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 3:47:34 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 3:49:09 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:50:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:50:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 3:50:10 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 4
+Dec 16, 2025 5:45:32 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 5:45:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 5:45:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 5:45:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 5:45:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 5:45:32 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 5:51:48 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 16, 2025 5:51:48 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080
+Dec 16, 2025 6:09:34 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:09:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:09:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:10:04 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:10:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:10:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:11:09 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:11:21 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:11:21 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:11:21 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:11:21 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:11:35 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:24 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:12:32 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:12:37 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:12:40 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:12:45 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:47 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:48 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:50 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:50 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:51 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:51 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:51 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:51 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:51 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:51 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:12:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:00 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:13:00 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:00 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:00 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:02 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 5
+Dec 16, 2025 6:13:19 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:13:25 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:13:35 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:13:35 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:35 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:35 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:35 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:13:35 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:14:01 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:14:01 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:01 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:01 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:01 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:01 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:14:10 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:14:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:10 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:14:30 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:14:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:14:30 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:15:17 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:15:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:15:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:15:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:15:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:15:17 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:16:17 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 4
+Dec 16, 2025 6:16:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:16:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:16:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:19:16 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 4
+Dec 16, 2025 6:19:16 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:19:38 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 4
+Dec 16, 2025 6:19:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:21:52 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:21:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:21:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:21:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:21:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:21:52 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:21:52 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:21:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:22:00 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:23:19 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:23:56 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:24:02 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:24:03 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:24:05 PM com.openBilim.LOGGER warning
+WARNING: Error closing resources: This statement has been closed.
+Dec 16, 2025 6:24:05 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:24:05 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:24:07 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:24:25 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 4
+Dec 16, 2025 6:24:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:24:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:24:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:24:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:24:27 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:24:27 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 4
+Dec 16, 2025 6:24:27 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 6
+Dec 16, 2025 6:26:17 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:17 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:26:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:19 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:19 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:19 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:26:21 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:21 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:21 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:26:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:24 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:26:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:25 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:26:25 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:26:25 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:31:17 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:31:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:17 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:19 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:19 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:19 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 7
+Dec 16, 2025 6:31:22 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:23 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:31:55 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:32:04 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:33:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:53 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:53 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:53 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:33:54 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:54 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:54 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:33:56 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:56 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:56 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:33:58 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:58 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:33:58 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:33:58 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:34:06 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:34:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:06 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:34:06 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:13 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:34:20 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:34:20 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:20 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:20 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:34:24 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 8
+Dec 16, 2025 6:35:11 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:14 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:31 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:35:31 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:31 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:31 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:31 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:31 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:35:31 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:32 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:35:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:34 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:35:39 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:39 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:39 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 6:35:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:43 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:35:43 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:35:59 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:35:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:35:59 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:29 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:29 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:29 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 9
+Dec 16, 2025 6:37:34 PM com.openBilim.LOGGER warning
+WARNING: Ошибка валидации: JWT String argument cannot be null or empty.
+Dec 16, 2025 6:37:40 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:37:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:40 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:37:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:42 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:42 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:42 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:37:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:43 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:37:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:45 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:37:51 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:51 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:37:51 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:37:51 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:38:00 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:38:00 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:00 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:00 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:01 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:01 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:01 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 10
+Dec 16, 2025 6:38:14 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:24 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:38:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:24 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:38:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:26 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:26 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:26 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:28 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:28 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:28 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:29 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:29 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:29 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:32 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:32 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:38:41 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:38:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:42 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:42 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:43 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 11
+Dec 16, 2025 6:38:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:45 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:47 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:49 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:49 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:49 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:50 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:38:50 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:38:50 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:40:33 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:40:33 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:33 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:33 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:34 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:34 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 12
+Dec 16, 2025 6:40:36 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:36 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:36 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:40:37 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:37 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:37 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:40:39 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:39 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:39 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:40:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:41 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:40:41 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:40:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:40:47 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 13
+Dec 16, 2025 6:41:13 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:41:13 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:41:13 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:41:13 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:41:13 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:41:13 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:41:13 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:12 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:44:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:12 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:44:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:41 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:41 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:44:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:43 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:44:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:44:45 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:07 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:47:07 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:07 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:07 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:07 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:07 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:47:07 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:10 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:10 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:10 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:47:11 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:12 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:12 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 14
+Dec 16, 2025 6:47:14 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:14 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:14 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:30 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:47:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:30 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:47:30 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:32 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:32 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 6:47:35 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:35 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:35 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:38 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:47:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:38 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:47:38 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:40 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:42 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:42 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:42 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:44 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:44 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:44 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:47:45 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:47:45 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:47:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:24 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:24 PM com.openBilim.LOGGER info
+INFO: Запущена сессия: 15
+Dec 16, 2025 6:48:27 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:27 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:27 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:48:33 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:33 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:33 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 6:48:40 PM com.openBilim.LOGGER info
+INFO: Создание Токена пользователя: 1
+Dec 16, 2025 6:48:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:40 PM com.openBilim.LOGGER info
+INFO: 1 Продолжил прохождение теста на сессии 1
+Dec 16, 2025 6:48:40 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:43 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:43 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: true
+Dec 16, 2025 6:48:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:45 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
+Dec 16, 2025 6:48:45 PM com.openBilim.LOGGER info
+INFO: Пользователь 1 ответил на вопрос 
+ правильность: false
+Dec 16, 2025 6:48:45 PM com.openBilim.LOGGER info
+INFO: Тест окончен!
+Dec 16, 2025 6:48:47 PM com.openBilim.LOGGER info
+INFO: Успешно валидирован пользователь 1
