@@ -1,8 +1,0 @@
-{
-    "server_port":"8080",
-    "ipAddress":null,
-    "db_adress":"jdbc:postgresql://localhost:5432/OBDB",
-    "db_username":"postgres",
-    "db_password":"123456"
-
-}

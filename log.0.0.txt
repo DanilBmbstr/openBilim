@@ -1307,3 +1307,15 @@ Dec 16, 2025 6:48:45 PM com.openBilim.LOGGER info
 INFO: Тест окончен!
 Dec 16, 2025 6:48:47 PM com.openBilim.LOGGER info
 INFO: Успешно валидирован пользователь 1
+Dec 23, 2025 2:01:47 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 23, 2025 2:01:48 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080
+Dec 23, 2025 2:01:56 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 23, 2025 2:01:56 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080
+Dec 23, 2025 2:03:46 PM com.openBilim.LOGGER info
+INFO: Connected to PostgreSQL database!
+Dec 23, 2025 2:03:46 PM com.openBilim.LOGGER info
+INFO: Сервер успешно запущен на порте 8080
